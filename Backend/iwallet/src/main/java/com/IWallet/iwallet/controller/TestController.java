@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5173") // Izinkan React (Vite) mengakses API ini
+@CrossOrigin(origins = "http://localhost:5173")
 public class TestController {
-
-    @GetMapping("/hello")
+    
+    @GetMapping("/hello") //catches GET HTTP method. if FE (react) fetch to localhost:8080/api/hello, procedure below will be executed.
     public String sayHello() {
-        return "Halo dari Spring Boot Backend!";
+        return "Halo dari Spring Boot Backend! Returned from TestController.java."; //localhost:8080/api/hello
     }
 }

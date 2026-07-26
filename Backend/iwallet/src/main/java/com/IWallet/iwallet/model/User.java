@@ -1,23 +1,24 @@
-package com.IWallet.iwallet.model;
+// model: representasi bentuk tabel database ke dalam kode Java. File User.java: Tabel user
+package com.IWallet.iwallet.model; //Klasifikasi package, kode ini masuk ke package model.
 
+//Libraries yang diperlukan
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.time.LocalDateTime;
 
-@Data // Lombok untuk otomatisasi Getter, Setter, dll
-@Entity
-@Table(name = "users")
+@Data //Getter, setter, etc. Annotations; penyingkatan kode
+@Entity //Penentuan kelas Entitas
+@Table(name = "users") //Map ke tabel di SQL DB "users"
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Id //var below this annotations become Primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Other name for "Auto Increment"
+    @Column(name = "user_id") //var below this annotations mapped to a  column named "user_id"
     private Long userId;
 
-    @Column(name = "full_name", nullable = false)
+    @Column(name = "full_name", nullable = false) //nullable false: NOT NULL
     private String fullName;
 
     @Column(name = "email", unique = true, nullable = false)
@@ -32,11 +33,10 @@ public class User {
     @Column(name = "pin", nullable = false)
     private String pin;
 
-    // Status sekarang sudah ada di DB, jadi kita aktifkan kembali
     @Column(name = "status", nullable = false)
     private String status;
 
-    @CreationTimestamp
+    @CreationTimestamp 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
