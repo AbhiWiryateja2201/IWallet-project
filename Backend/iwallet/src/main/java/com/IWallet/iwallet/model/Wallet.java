@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -21,7 +22,10 @@ public class Wallet {
     @Column(name = "wallet_number", unique = true)
     private String walletNumber;
 
-    @Column(name = "balance")
+    @Column(name = "public_id", unique = true, nullable = false, updatable = false)
+    private String publicId;
+
+    @Column(name = "balance", precision = 19, scale = 4, nullable = false)
     private BigDecimal balance;
 
     @Column(name = "status")
@@ -36,7 +40,8 @@ public class Wallet {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private User user; //call whole user object instead of a singular ID element.
+    private User user; //call whole user object instead of
+    //  a singular ID element.
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -45,4 +50,10 @@ public class Wallet {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.publicId = UUID.randomUUID().toString();
+    }
+
 }

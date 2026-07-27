@@ -7,6 +7,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data //Getter, setter, etc. Annotations; penyingkatan kode
 @Entity //Penentuan kelas Entitas
@@ -17,6 +18,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Other name for "Auto Increment"
     @Column(name = "user_id") //var below this annotations mapped to a  column named "user_id"
     private Long userId;
+
+    @Column(name = "public_id", updatable = false, nullable = false, unique = true)
+    private String publicId;
 
     @Column(name = "full_name", nullable = false) //nullable false: NOT NULL
     private String fullName;
@@ -43,4 +47,10 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
+    @PrePersist
+    protected void onCreate() {
+    this.publicId = UUID.randomUUID().toString();
+    }
+
 }

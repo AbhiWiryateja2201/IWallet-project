@@ -1,5 +1,6 @@
 package com.IWallet.iwallet.controller;
 
+import com.IWallet.iwallet.dto.UserResponseDTO;
 import com.IWallet.iwallet.model.User;
 import com.IWallet.iwallet.service.AuthService;
 
@@ -22,10 +23,10 @@ public class AuthController {
     @PostMapping("/register") //menerima request POST di URL /api/auth/register
     public ResponseEntity<?> register(@RequestBody User user) { //annotation on this line automatically translates received JSON into user object.
         try {
-            User registeredUser = authService.register(user);
+            UserResponseDTO registeredUser = authService.register(user);
             return ResponseEntity.ok(registeredUser);
         } catch (Exception e) {
-            return ResponseEntity.badRbequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -34,8 +35,8 @@ public class AuthController {
         try {
             String email = request.get("email");
             String password = request.get("password");
-            User user = authService.login(email, password);
-            return ResponseEntity.ok(user);
+            UserResponseDTO userResponse = authService.login(email, password);
+            return ResponseEntity.ok(userResponse);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
