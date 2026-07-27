@@ -14,4 +14,5 @@ existByEmail: fungsi dari JpaRepository: TRUE if email sudah ada di database, el
 public interface UserRepository extends JpaRepository<User, Long> { //<User, Long> artinya "Ini repository untuk tabel User, dan tipe data Primary Key-nya adalah Long"
     Optional<User> findByEmail(String email);
     boolean existsByEmail(String email);
+    Optional<User> findByPublicId(String publicId);
 }
