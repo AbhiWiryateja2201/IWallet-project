@@ -2,44 +2,46 @@
 package com.IWallet.iwallet.service;
 
 import com.IWallet.iwallet.dto.UserResponseDTO;
+import com.IWallet.iwallet.dto.UserRegisterRequestDTO;
 import com.IWallet.iwallet.model.User;
 import com.IWallet.iwallet.model.Wallet;
 import com.IWallet.iwallet.repository.UserRepository;
 import com.IWallet.iwallet.repository.WalletRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service //same as Entity, this one declares that this file handle business logic
+@RequiredArgsConstructor
 public class AuthService {
 
     /* ATRIBUT */  
-
-    //Autowired : dependency injection, uses Repositorypkg files, no need to create object manually.
-    @Autowired 
-    private UserRepository userRepository;
-    
-    @Autowired
-    private WalletRepository walletRepository;
-
+    private final UserRepository userRepository;
+    private final WalletRepository walletRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    
     /******************* METHOD *******************/
-    public UserResponseDTO register(User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
+
+    @Transactional(rollbackFor = Exception.class)
+    public UserResponseDTO register(UserRegisterRequestDTO dto) {
+        if (userRepository.existsByEmail(dto.getEmail())) {
             throw new RuntimeException("Email sudah terdaftar!");
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setPin(passwordEncoder.encode(user.getPin()));
+        User user = new User();
+        user.setFullName(dto.getFullName());
+        user.setEmail(dto.getEmail());
+        user.setPhoneNumber(dto.getPhoneNumber());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setPin(passwordEncoder.encode(dto.getPin()));
         user.setStatus("ACTIVE");
+        
         User savedUser = userRepository.save(user);
 
-        // assign Wallet saat user baru mendaftar, one to one
         Wallet wallet = new Wallet();
         wallet.setUser(savedUser);
         wallet.setWalletNumber("WAL-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
@@ -51,25 +53,23 @@ public class AuthService {
     }
 
     public UserResponseDTO login(String email, String password) {
-        Optional<User> userOpt = userRepository.findByEmail(email);
-        if (userOpt.isPresent()) {
-            User user = userOpt.get();
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                return mapToDTO(user);
+            User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Email atau Password salah!"));
+
+            if (!passwordEncoder.matches(password, user.getPassword())) {
+                throw new RuntimeException("Email atau Password salah!");
             }
+            
+            return mapToDTO(user);
         }
-        throw new RuntimeException("Email atau Password salah!");
-    }
 
     public void deleteUser(String publicId) {
-        User user = userRepository.findAll().stream()
-                .filter(existingUser -> publicId.equals(existingUser.getPublicId()))
-                .findFirst()
+            User user = userRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new RuntimeException("User tidak ditemukan!"));
 
-        user.setStatus("INACTIVE");
-        userRepository.save(user);
-    }
+            user.setStatus("INACTIVE");
+            userRepository.save(user); //soft delete
+        }
 
     private UserResponseDTO mapToDTO(User user) {
         UserResponseDTO dto = new UserResponseDTO();

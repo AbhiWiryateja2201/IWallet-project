@@ -1,8 +1,10 @@
 package com.IWallet.iwallet.controller;
 
 import com.IWallet.iwallet.dto.UserResponseDTO;
-import com.IWallet.iwallet.model.User;
+import com.IWallet.iwallet.dto.UserRegisterRequestDTO;
 import com.IWallet.iwallet.service.AuthService;
+
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +16,22 @@ import java.util.Map;
 @RequestMapping("/api/auth") //declare url base for this specific API, so all route begins with http://localhost:8080/api/auth
 //this annotation below prevents CORS policy, so react can access the API (by default CORS blocks differnet address requests.)
 @CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173"})
+@RequiredArgsConstructor
 
 public class AuthController {
 
     @Autowired
     private AuthService authService;
 
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
     @PostMapping("/register") //menerima request POST di URL /api/auth/register
-    public ResponseEntity<?> register(@RequestBody User user) { //annotation on this line automatically translates received JSON into user object.
+    public ResponseEntity<?> register(@RequestBody UserRegisterRequestDTO requestDTO) { //annotation on this line automatically translates received JSON into user object.
         try {
-            UserResponseDTO registeredUser = authService.register(user);
+            // Gunakan DTO, bukan Entity User
+            UserResponseDTO registeredUser = authService.register(requestDTO);
             return ResponseEntity.ok(registeredUser);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
