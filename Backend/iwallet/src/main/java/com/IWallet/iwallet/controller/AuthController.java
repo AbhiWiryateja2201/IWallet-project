@@ -1,12 +1,12 @@
 package com.IWallet.iwallet.controller;
 
+import com.IWallet.iwallet.dto.LoginResponseDTO;
 import com.IWallet.iwallet.dto.UserResponseDTO;
 import com.IWallet.iwallet.dto.UserRegisterRequestDTO;
 import com.IWallet.iwallet.service.AuthService;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +20,7 @@ import java.util.Map;
 
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
-
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
+    private final AuthService authService;
 
     @PostMapping("/register") //menerima request POST di URL /api/auth/register
     public ResponseEntity<?> register(@RequestBody UserRegisterRequestDTO requestDTO) { //annotation on this line automatically translates received JSON into user object.
@@ -43,8 +38,8 @@ public class AuthController {
         try {
             String email = request.get("email");
             String password = request.get("password");
-            UserResponseDTO userResponse = authService.login(email, password);
-            return ResponseEntity.ok(userResponse);
+            LoginResponseDTO loginResponse = authService.login(email, password);
+            return ResponseEntity.ok(loginResponse);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

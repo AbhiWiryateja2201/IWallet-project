@@ -1,12 +1,14 @@
 // Package service: aturan bisnis
 package com.IWallet.iwallet.service;
 
+import com.IWallet.iwallet.dto.LoginResponseDTO;
 import com.IWallet.iwallet.dto.UserResponseDTO;
 import com.IWallet.iwallet.dto.UserRegisterRequestDTO;
 import com.IWallet.iwallet.model.User;
 import com.IWallet.iwallet.model.Wallet;
 import com.IWallet.iwallet.repository.UserRepository;
 import com.IWallet.iwallet.repository.WalletRepository;
+import com.IWallet.iwallet.security.JwtUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +25,7 @@ public class AuthService {
     /* ATRIBUT */  
     private final UserRepository userRepository;
     private final WalletRepository walletRepository;
+    private final JwtUtil jwtUtil;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     /******************* METHOD *******************/
 
@@ -52,7 +55,7 @@ public class AuthService {
         return mapToDTO(savedUser);
     }
 
-    public UserResponseDTO login(String email, String password) {
+    public LoginResponseDTO login(String email, String password) {
             User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Email atau Password salah!"));
 
@@ -60,7 +63,8 @@ public class AuthService {
                 throw new RuntimeException("Email atau Password salah!");
             }
             
-            return mapToDTO(user);
+            String token = jwtUtil.generateToken(user.getPublicId());
+            return new LoginResponseDTO(token, mapToDTO(user));
         }
 
     public void deleteUser(String publicId) {
