@@ -31,3 +31,28 @@ build/
 
 ### VS Code ###
 .vscode/
+.history/
+
+### Logs ###
+*.log
+
+### Environment Variables & Secrets ###
+.env
+.env.*
+*.properties.local
+application-secret.properties
+application-secrets.properties
+application-dev.properties
+
+### API Testing (REST Client / Thunder Client) ###
+*.http
+*.rest
+
+### OS generated files ###
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
