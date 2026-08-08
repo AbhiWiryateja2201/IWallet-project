@@ -1,4 +1,5 @@
-@import "tailwindcss";
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
 
 @theme {
   --color-primary: #7C3AED;
@@ -19,7 +20,16 @@
   --color-outline-variant: #D1D5DB;
   --color-error-container: #FEE2E2;
   --color-on-error-container: #991B1B;
+  --color-error: #BA1A1A;
+  --color-on-error: #FFFFFF;
   --color-on-secondary-fixed-variant: #6B7280;
+  --color-secondary: #5C5F60;
+  --color-secondary-container: #E1E3E4;
+  --color-on-secondary-container: #626566;
+  --color-surface-variant: #E8DFEE;
+  --color-surface-dim: #DFD7E6;
+  --color-surface-bright: #FEF7FF;
+  --color-on-background: #1D1A24;
   --color-tertiary: #EC4899;
 
   --font-display-lg: 32px;
@@ -46,6 +56,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
