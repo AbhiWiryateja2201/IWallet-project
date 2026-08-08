@@ -1,212 +1,201 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+const NAV_ITEMS = [
+  { label: 'Dashboard', icon: 'dashboard', to: '/dashboard' },
+  { label: 'Wallet', icon: 'account_balance_wallet', to: '/payment', active: true },
+  { label: 'History', icon: 'history', to: '/transaction' },
+  { label: 'Profile', icon: 'person', to: '/profile' },
+]
+
+const STATS = [
+  { label: 'Total Balance', value: '$42,920.00', valueClass: 'text-[#630ED4]' },
+  { label: 'Monthly Spend', value: '$3,450.00', valueClass: 'text-[#7D3D00]' },
+  { label: 'Active Cards', value: '3 Units', valueClass: 'text-[#1D1A24]' },
+]
+
 export default function PaymentPin() {
+  const navigate = useNavigate()
+  const [pin, setPin] = useState('')
+
+  const handleDigit = (digit) => {
+    if (pin.length < 6) setPin((prev) => prev + digit)
+  }
+
+  const handleBackspace = () => setPin((prev) => prev.slice(0, -1))
+
   return (
-    <div style={{width: '100%', height: '100%', position: 'relative', background: 'linear-gradient(0deg, #FEF7FF 0%, #FEF7FF 100%), white', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-end', display: 'inline-flex'}}>
-    <div style={{width: 256, height: 1008, padding: 16, left: 0, top: 0, position: 'absolute', background: '#F9F1FF', borderRight: '1px rgba(204, 195, 216, 0.20) solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'flex'}}>
-        <div style={{alignSelf: 'stretch', paddingBottom: 16, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-            <div style={{alignSelf: 'stretch', paddingLeft: 8, paddingRight: 8, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{width: 40, height: 40, background: '#630ED4', borderRadius: 12, justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
-                    <img style={{flex: '1 1 0', alignSelf: 'stretch', position: 'relative', borderRadius: 12}} src="https://placehold.co/40x40" />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                        <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#630ED4', fontSize: 20, fontFamily: 'Inter', fontWeight: '900', lineHeight: 28, wordWrap: 'break-word'}}>IWallet</div>
-                    </div>
-                    <div style={{alignSelf: 'stretch', opacity: 0.70, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                        <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 10, fontFamily: 'Inter', fontWeight: '600', lineHeight: 12, wordWrap: 'break-word'}}>Premium Digital Wallet</div>
-                    </div>
-                </div>
+    <div className="min-h-screen flex flex-col lg:flex-row bg-[#FEF7FF]">
+      <aside className="hidden lg:flex lg:w-64 lg:shrink-0 lg:h-screen lg:sticky lg:top-0 flex-col gap-4 p-4 bg-[#F9F1FF] border-r border-[#CCC3D8]/20">
+        <div className="px-2 mb-2">
+          <div className="flex items-center gap-3 mb-1">
+            <div className="w-10 h-10 bg-[#630ED4] rounded-xl flex items-center justify-center">
+              <span className="material-symbols-outlined text-white">account_balance_wallet</span>
             </div>
+            <span className="text-[20px] leading-7 font-black text-[#630ED4]">IWallet</span>
+          </div>
+          <p className="text-[10px] leading-3 font-semibold text-[#4A4455] opacity-70">Premium Digital Wallet</p>
         </div>
-        <div style={{alignSelf: 'stretch', flex: '1 1 0', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-            <div style={{alignSelf: 'stretch', padding: 12, borderRadius: 12, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 18, height: 18, background: '#4A4455'}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Dashboard</div>
-                </div>
-            </div>
-            <div style={{alignSelf: 'stretch', padding: 12, background: '#630ED4', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderRadius: 12, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 19, height: 18, background: 'white'}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '700', lineHeight: 24, wordWrap: 'break-word'}}>Wallet</div>
-                </div>
-            </div>
-            <div style={{alignSelf: 'stretch', padding: 12, borderRadius: 12, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 18, height: 18, background: '#4A4455'}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>History</div>
-                </div>
-            </div>
-            <div style={{alignSelf: 'stretch', padding: 12, borderRadius: 12, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 16, height: 16, background: '#4A4455'}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Profile</div>
-                </div>
-            </div>
+
+        <nav className="flex flex-col gap-2">
+          {NAV_ITEMS.map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              onClick={() => navigate(item.to)}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all active:scale-95 ${
+                item.active
+                  ? 'bg-[#630ED4] shadow-[0px_1px_2px_rgba(0,0,0,0.05)] text-white font-bold'
+                  : 'text-[#4A4455] hover:bg-[#EDE0FF] font-normal'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+              <span className="text-base leading-6">{item.label}</span>
+            </button>
+          ))}
+        </nav>
+
+        <div className="mt-auto flex flex-col gap-2">
+          <button
+            type="button"
+            onClick={() => navigate('/topup')}
+            className="w-full py-3 bg-[#7C3AED] text-[#EDE0FF] font-bold text-base rounded-xl hover:bg-[#7C3AED]/90 transition-colors active:scale-95"
+          >
+            Add Funds
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate('/login')}
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#4A4455] hover:bg-[#EDE0FF] transition-all"
+          >
+            <span className="material-symbols-outlined text-[20px]">logout</span>
+            <span className="text-base leading-6">Logout</span>
+          </button>
         </div>
-        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-            <div style={{alignSelf: 'stretch', paddingTop: 12, paddingBottom: 12, background: '#7C3AED', borderRadius: 12, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#EDE0FF', fontSize: 16, fontFamily: 'Inter', fontWeight: '700', lineHeight: 24, wordWrap: 'break-word'}}>Add Funds</div>
+      </aside>
+
+      <div className="flex-1 min-w-0 flex flex-col">
+        <header className="sticky top-0 z-30 flex items-center justify-between gap-4 h-16 px-5 md:px-8 bg-white/80 backdrop-blur-xl border-b border-[#CCC3D8]/30 shadow-sm">
+          <div className="flex items-center gap-3">
+            <span className="lg:hidden w-8 h-8 rounded-lg bg-[#630ED4] flex items-center justify-center">
+              <span className="material-symbols-outlined text-white text-[18px]">account_balance_wallet</span>
+            </span>
+            <h1 className="text-2xl md:text-[32px] leading-8 md:leading-10 font-bold text-[#630ED4]">Verifikasi PIN</h1>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="relative hidden lg:block">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#4A4455] text-[18px]">search</span>
+              <input
+                className="w-64 bg-white border border-[#CCC3D8]/30 rounded-full pl-10 pr-4 py-2.5 text-base focus:ring-2 focus:ring-[#630ED4] transition-all"
+                placeholder="Search transactions..."
+                type="text"
+              />
             </div>
-            <div style={{alignSelf: 'stretch', padding: 12, borderRadius: 12, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 18, height: 18, background: '#4A4455'}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Logout</div>
-                </div>
+            <button className="p-2 text-[#4A4455] hover:text-[#630ED4] transition-colors" type="button">
+              <span className="material-symbols-outlined">notifications</span>
+            </button>
+            <button className="p-2 text-[#4A4455] hover:text-[#630ED4] transition-colors" type="button">
+              <span className="material-symbols-outlined">help</span>
+            </button>
+            <div className="w-10 h-10 rounded-full bg-[#630ED4] flex items-center justify-center text-white border-2 border-[#630ED4]/20">
+              <span className="material-symbols-outlined text-[18px]">person</span>
             </div>
+          </div>
+        </header>
+
+        <main className="flex-1 relative p-5 md:p-8">
+          <div className="pointer-events-none absolute -top-20 right-0 w-96 h-96 bg-[#630ED4]/5 rounded-full blur-3xl" />
+          <div className="pointer-events-none absolute bottom-0 left-10 w-80 h-80 bg-[#7D3D00]/5 rounded-full blur-3xl" />
+
+          <div className="relative max-w-screen-xl mx-auto flex flex-col gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              {STATS.map((stat) => (
+                <div key={stat.label} className="bg-white rounded-3xl shadow-[0px_1px_2px_rgba(0,0,0,0.05)] p-6 flex flex-col justify-between gap-8">
+                  <span className="text-xs font-medium tracking-[0.12px] text-[#4A4455]">{stat.label}</span>
+                  <span className={`text-3xl leading-10 font-bold ${stat.valueClass}`}>{stat.value}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-white rounded-3xl shadow-[0px_1px_2px_rgba(0,0,0,0.05)] h-64 flex items-center justify-center">
+              <span className="material-symbols-outlined text-5xl text-[#CCC3D8]">bar_chart</span>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="absolute inset-0 bg-[#DFD7E6]/20 backdrop-blur-sm" onClick={() => navigate('/payment')} />
+        <div className="relative w-full max-w-md bg-white/85 backdrop-blur-md rounded-[32px] outline outline-1 outline-white/50 shadow-[0_20px_50px_rgba(99,14,212,0.15)] p-8 flex flex-col items-center">
+          <div className="w-16 h-16 bg-[#7C3AED]/10 rounded-2xl flex items-center justify-center mb-6">
+            <span className="material-symbols-outlined text-[#630ED4] text-3xl">lock</span>
+          </div>
+
+          <h2 className="text-2xl leading-8 font-semibold text-[#1D1A24] mb-2">Masukkan PIN Anda</h2>
+          <p className="text-sm leading-5 text-center text-[#4A4455] mb-8">
+            Konfirmasi pembayaran Anda dengan memasukkan 6 digit PIN keamanan.
+          </p>
+
+          <div className="flex items-center gap-4 mb-10">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <span
+                key={i}
+                className={`w-4 h-4 rounded-full ${i < pin.length ? 'bg-[#630ED4]' : 'border-2 border-[#630ED4]/30'}`}
+              />
+            ))}
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 w-full max-w-[240px] mb-6">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
+              <button
+                key={n}
+                type="button"
+                onClick={() => handleDigit(String(n))}
+                className="w-14 h-14 rounded-full flex items-center justify-center text-xl leading-7 font-bold text-[#4A4455] hover:bg-[#F9F1FF] active:scale-95 transition-all"
+              >
+                {n}
+              </button>
+            ))}
+            <span className="w-14 h-14" />
+            <button
+              type="button"
+              onClick={() => handleDigit('0')}
+              className="w-14 h-14 rounded-full flex items-center justify-center text-xl leading-7 font-bold text-[#4A4455] hover:bg-[#F9F1FF] active:scale-95 transition-all"
+            >
+              0
+            </button>
+            <button
+              type="button"
+              onClick={handleBackspace}
+              className="w-14 h-14 rounded-full flex items-center justify-center text-[#4A4455] hover:bg-[#F9F1FF] active:scale-95 transition-all"
+            >
+              <span className="material-symbols-outlined text-2xl">backspace</span>
+            </button>
+          </div>
+
+          <button type="button" className="text-base font-bold text-[#630ED4] mb-8 hover:underline">
+            Lupa PIN?
+          </button>
+
+          <div className="flex gap-4 w-full">
+            <button
+              type="button"
+              onClick={() => navigate('/payment')}
+              className="flex-1 py-4 bg-[#E1E3E4] text-[#626566] font-bold text-base rounded-2xl hover:bg-[#E1E3E4]/70 active:scale-95 transition-all"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              disabled={pin.length < 6}
+              onClick={() => navigate('/payment/confirm')}
+              className="flex-1 py-4 bg-[#630ED4] text-white font-bold text-base rounded-2xl shadow-[0_10px_20px_rgba(99,14,212,0.20)] disabled:opacity-50 disabled:shadow-none active:scale-95 transition-all"
+            >
+              Verify
+            </button>
+          </div>
         </div>
-    </div>
-    <div style={{alignSelf: 'stretch', height: 64, paddingLeft: 256, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-        <div style={{alignSelf: 'stretch', height: 64, paddingLeft: 20, paddingRight: 20, background: 'rgba(255, 255, 255, 0.80)', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderBottom: '1px rgba(204, 195, 216, 0.30) solid', backdropFilter: 'blur(12px)', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex'}}>
-            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#630ED4', fontSize: 32, fontFamily: 'Inter', fontWeight: '700', lineHeight: 40, wordWrap: 'break-word'}}>Verifikasi PIN</div>
-            </div>
-            <div style={{justifyContent: 'flex-start', alignItems: 'center', gap: 24, display: 'flex'}}>
-                <div style={{position: 'relative', justifyContent: 'flex-start', alignItems: 'center', display: 'flex'}}>
-                    <div style={{width: 256, paddingTop: 10, paddingBottom: 10, paddingLeft: 40, paddingRight: 16, background: 'white', overflow: 'hidden', borderRadius: 9999, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <div style={{alignSelf: 'stretch', overflow: 'hidden', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                            <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#6B7280', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Search transactions...</div>
-                        </div>
-                    </div>
-                    <div style={{width: 18, height: 18, left: 15, top: 11, position: 'absolute', background: '#4A4455'}} />
-                </div>
-                <div style={{justifyContent: 'flex-start', alignItems: 'center', gap: 16, display: 'flex'}}>
-                    <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <div style={{width: 16, height: 20, background: '#4A4455'}} />
-                    </div>
-                    <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <div style={{width: 20, height: 20, background: '#4A4455'}} />
-                    </div>
-                    <div style={{width: 40, height: 40, overflow: 'hidden', borderRadius: 9999, outline: '2px rgba(99, 14, 212, 0.20) solid', outlineOffset: '-2px', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <img style={{alignSelf: 'stretch', flex: '1 1 0', position: 'relative'}} src="https://placehold.co/36x36" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style={{width: 1052, minHeight: 944, paddingTop: 24, paddingBottom: 472, paddingLeft: 24, paddingRight: 24, position: 'relative', overflow: 'hidden', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-        <div style={{width: 384, height: 384, left: 588, top: 80, position: 'absolute', background: 'rgba(99, 14, 212, 0.05)', boxShadow: '64px 64px 64px ', borderRadius: 9999, filter: 'blur(32px)'}} />
-        <div style={{width: 320, height: 320, left: 80, top: 544, position: 'absolute', background: 'rgba(125, 61, 0, 0.05)', boxShadow: '64px 64px 64px ', borderRadius: 9999, filter: 'blur(32px)'}} />
-        <div style={{alignSelf: 'stretch', opacity: 0.30, boxShadow: '4px 4px 4px ', filter: 'blur(2px)', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 32, display: 'flex'}}>
-            <div style={{alignSelf: 'stretch', justifyContent: 'center', alignItems: 'flex-start', gap: 24, display: 'inline-flex'}}>
-                <div style={{width: 318.66, height: 160, padding: 24, background: 'white', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderRadius: 24, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                        <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Total Balance</div>
-                    </div>
-                    <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                        <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#630ED4', fontSize: 32, fontFamily: 'Inter', fontWeight: '700', lineHeight: 40, wordWrap: 'break-word'}}>$42,920.00</div>
-                    </div>
-                </div>
-                <div style={{width: 318.67, height: 160, padding: 24, background: 'white', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderRadius: 24, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                        <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Monthly Spend</div>
-                    </div>
-                    <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                        <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#7D3D00', fontSize: 32, fontFamily: 'Inter', fontWeight: '700', lineHeight: 40, wordWrap: 'break-word'}}>$3,450.00</div>
-                    </div>
-                </div>
-                <div style={{width: 318.66, height: 160, padding: 24, background: 'white', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderRadius: 24, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                        <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Active Cards</div>
-                    </div>
-                    <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                        <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 32, fontFamily: 'Inter', fontWeight: '700', lineHeight: 40, wordWrap: 'break-word'}}>3 Units</div>
-                    </div>
-                </div>
-            </div>
-            <div style={{alignSelf: 'stretch', height: 256, background: 'white', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderRadius: 24}} />
-        </div>
-        <div style={{width: 1052, height: 944, left: 0, top: 0, position: 'absolute', background: 'rgba(223, 215, 230, 0.20)', backdropFilter: 'blur(6px)', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-            <div style={{width: 448, maxWidth: 448, padding: 32, background: 'rgba(255, 255, 255, 0.85)', boxShadow: '0px 20px 50px rgba(99, 14, 212, 0.15)', borderRadius: 32, outline: '1px rgba(255, 255, 255, 0.50) solid', outlineOffset: '-1px', backdropFilter: 'blur(8px)', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
-                <div style={{width: 64, height: 88, paddingBottom: 24, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{width: 64, height: 64, background: 'rgba(124, 58, 237, 0.10)', borderRadius: 16, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                        <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                            <div style={{width: 24, height: 31.50, background: '#630ED4'}} />
-                        </div>
-                    </div>
-                </div>
-                <div style={{paddingBottom: 8, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 24, fontFamily: 'Inter', fontWeight: '600', lineHeight: 32, wordWrap: 'break-word'}}>Masukkan PIN Anda</div>
-                </div>
-                <div style={{paddingBottom: 32, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{paddingLeft: 14.45, paddingRight: 14.45, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', display: 'flex'}}>
-                        <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', lineHeight: 20, wordWrap: 'break-word'}}>Konfirmasi pembayaran Anda dengan memasukkan 6<br/>digit PIN keamanan.</div>
-                    </div>
-                </div>
-                <div style={{paddingBottom: 40, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
-                        <div style={{width: 16, height: 16, borderRadius: 9999, border: '2px rgba(99, 14, 212, 0.30) solid'}} />
-                        <div style={{width: 16, height: 16, borderRadius: 9999, border: '2px rgba(99, 14, 212, 0.30) solid'}} />
-                        <div style={{width: 16, height: 16, borderRadius: 9999, border: '2px rgba(99, 14, 212, 0.30) solid'}} />
-                        <div style={{width: 16, height: 16, borderRadius: 9999, border: '2px rgba(99, 14, 212, 0.30) solid'}} />
-                        <div style={{width: 16, height: 16, borderRadius: 9999, border: '2px rgba(99, 14, 212, 0.30) solid'}} />
-                        <div style={{width: 16, height: 16, borderRadius: 9999, border: '2px rgba(99, 14, 212, 0.30) solid'}} />
-                    </div>
-                </div>
-                <div style={{width: 300, maxWidth: 300, paddingBottom: 32, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{width: '100%', maxWidth: 300, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <div style={{width: 56, height: 56, borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 20, fontFamily: 'Inter', fontWeight: '700', lineHeight: 28, wordWrap: 'break-word'}}>1</div>
-                        </div>
-                        <div style={{width: 56, height: 56, borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 20, fontFamily: 'Inter', fontWeight: '700', lineHeight: 28, wordWrap: 'break-word'}}>2</div>
-                        </div>
-                        <div style={{width: 56, height: 56, borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 20, fontFamily: 'Inter', fontWeight: '700', lineHeight: 28, wordWrap: 'break-word'}}>3</div>
-                        </div>
-                        <div style={{width: 56, height: 56, borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 20, fontFamily: 'Inter', fontWeight: '700', lineHeight: 28, wordWrap: 'break-word'}}>4</div>
-                        </div>
-                        <div style={{width: 56, height: 56, borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 20, fontFamily: 'Inter', fontWeight: '700', lineHeight: 28, wordWrap: 'break-word'}}>5</div>
-                        </div>
-                        <div style={{width: 56, height: 56, borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 20, fontFamily: 'Inter', fontWeight: '700', lineHeight: 28, wordWrap: 'break-word'}}>6</div>
-                        </div>
-                        <div style={{width: 56, height: 56, borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 20, fontFamily: 'Inter', fontWeight: '700', lineHeight: 28, wordWrap: 'break-word'}}>7</div>
-                        </div>
-                        <div style={{width: 56, height: 56, borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 20, fontFamily: 'Inter', fontWeight: '700', lineHeight: 28, wordWrap: 'break-word'}}>8</div>
-                        </div>
-                        <div style={{width: 56, height: 56, borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 20, fontFamily: 'Inter', fontWeight: '700', lineHeight: 28, wordWrap: 'break-word'}}>9</div>
-                        </div>
-                        <div style={{width: 56, height: 56, borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 20, fontFamily: 'Inter', fontWeight: '700', lineHeight: 28, wordWrap: 'break-word'}}>0</div>
-                        </div>
-                        <div style={{width: 56, height: 56, borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
-                                <div style={{width: 20, height: 16, background: '#4A4455'}} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#630ED4', fontSize: 16, fontFamily: 'Inter', fontWeight: '700', lineHeight: 24, wordWrap: 'break-word'}}>Lupa PIN?</div>
-                </div>
-                <div style={{alignSelf: 'stretch', paddingTop: 32, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{alignSelf: 'stretch', justifyContent: 'center', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
-                        <div style={{flex: '1 1 0', paddingLeft: 24, paddingRight: 24, paddingTop: 16, paddingBottom: 16, background: '#E1E3E4', borderRadius: 16, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#626566', fontSize: 16, fontFamily: 'Inter', fontWeight: '700', lineHeight: 24, wordWrap: 'break-word'}}>Cancel</div>
-                        </div>
-                        <div style={{flex: '1 1 0', paddingLeft: 24, paddingRight: 24, paddingTop: 16, paddingBottom: 16, opacity: 0.50, background: '#630ED4', boxShadow: '0px 10px 20px rgba(99, 14, 212, 0.20)', borderRadius: 16, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '700', lineHeight: 24, wordWrap: 'break-word'}}>Verify</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+      </div>
     </div>
   )
 }

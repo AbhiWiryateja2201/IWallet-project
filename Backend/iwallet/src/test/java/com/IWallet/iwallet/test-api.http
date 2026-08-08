@@ -1,0 +1,39 @@
+POST http://localhost:8080/api/auth/login
+    Content-Type: application/json
+    
+    {
+        "email": "Johndoe2@co",
+        "password": "indivarahebat"
+    }
+
+### -------------------------------------------
+### Test 2: No Pass, No Entry (Unauthenticated)
+### -------------------------------------------
+# Klik "Send Request" di bawah ini.
+# Ekspektasi: Mendapat error 403 Forbidden atau 401 Unauthorized.
+GET http://localhost:8080/api/hello
+
+
+
+### -------------------------------------------
+### Test 3: The VIP Pass (Authenticated)
+### -------------------------------------------
+# Ganti <PASTE_TOKEN_DISINI> dengan token asli milikmu dari Test 1.
+# Klik "Send Request".
+# Ekspektasi: Mendapat 200 OK, atau 404 Not Found (kalau url /api/hello memang belum kamu buat). 
+# Yang penting BUKAN 401 atau 403!
+GET http://localhost:8080/api/hello
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiI1ZjAyNDExZS05YjBlLTRlMjYtYWVjOS1iMTgxNjYyODFhYWIiLCJpYXQiOjE3ODYwMDk3MzMsImV4cCI6MTc4NjAwOTc0M30.F3jDyHSow_k-JdtvEsmZSVghIiVUmi35K0egOE3z0HwPSQ1KUVUr_guEwDdkT9rj
+
+
+
+### -------------------------------------------
+### Test 4: Signature Tampering (Manipulasi Token)
+### -------------------------------------------
+# Ganti <PASTE_TOKEN_YANG_UDAH_DIUBAH_DIKIT> dengan token dari Test 1,
+# TETAPI coba hapus 1 huruf terakhirnya, atau ganti huruf terakhirnya (misal dari 'A' jadi 'B').
+# Klik "Send Request".
+# Ekspektasi: Harus 401 Unauthorized dengan balasan JSON {"status": "error", ...}
+# (Berkat patch yang aku buat sebelumnya, ini tidak akan memunculkan error 500 Java Stack Trace)
+GET http://localhost:8080/api/hello
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiI1ZjAyNDExZS05YjBlLTRlMjYtYWVjOS1iMTgxNjYyODFhYWIiLCJpYXQiOjE3ODYwMDk1MzEsImV4cCI6MTc4NjAxMDQzMX0.x6i6Dq8-WNzUjwNg1OexlWLY5yNx1dmFdy8OQEDMeHa_5i7kUfNjrf-I-mU_4ETA
