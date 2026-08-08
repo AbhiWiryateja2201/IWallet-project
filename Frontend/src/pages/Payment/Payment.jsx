@@ -166,7 +166,7 @@ export default function Payment() {
                           <span className="absolute right-3 top-1/2 -translate-y-1/2 text-primary material-symbols-outlined">edit</span>
                         </div>
                       </div>
-                      <button className="w-full py-3 bg-secondary-container text-secondary font-bold rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-95" onClick={() => navigate('/payment/pin')} type="button">
+                      <button className="w-full py-3 bg-secondary-container text-secondary font-bold rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-95" onClick={() => navigate('/payment/confirm')} type="button">
                         Proceed Payment
                       </button>
                     </div>

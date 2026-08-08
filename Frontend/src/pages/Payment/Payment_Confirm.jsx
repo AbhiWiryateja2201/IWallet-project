@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom'
+
 export default function PaymentConfirm() {
+  const navigate = useNavigate()
+
   return (
     <div style={{width: '100%', height: '100%', paddingLeft: 256, position: 'relative', background: 'linear-gradient(0deg, #FEF7FF 0%, #FEF7FF 100%), white', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
     <div style={{width: 1020, minHeight: 1024, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
@@ -269,7 +273,7 @@ export default function PaymentConfirm() {
             </div>
             <div style={{alignSelf: 'stretch', paddingTop: 32, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                 <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'flex'}}>
-                    <div style={{alignSelf: 'stretch', paddingTop: 20, paddingBottom: 20, paddingRight: 14.64, position: 'relative', background: 'linear-gradient(149deg, #7C3AED 0%, #630ED4 100%)', borderRadius: 16, justifyContent: 'center', alignItems: 'center', gap: 26.64, display: 'inline-flex'}}>
+                    <div style={{alignSelf: 'stretch', paddingTop: 20, paddingBottom: 20, paddingRight: 14.64, position: 'relative', background: 'linear-gradient(149deg, #7C3AED 0%, #630ED4 100%)', borderRadius: 16, justifyContent: 'center', alignItems: 'center', gap: 26.64, display: 'inline-flex', cursor: 'pointer', userSelect: 'none'}} onClick={() => navigate('/payment/pin')}>
                         <div style={{width: 197, height: 96, left: 0, top: 0, position: 'absolute', background: 'rgba(255, 255, 255, 0)', boxShadow: '0px 4px 6px -4px rgba(99, 14, 212, 0.20), 0px 10px 15px -3px rgba(99, 14, 212, 0.20)', borderRadius: 16}} />
                         <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
                             <div style={{width: 16, height: 20, background: 'white'}} />

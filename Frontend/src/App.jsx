@@ -3,7 +3,7 @@ import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
 import Dashboard from './pages/Dashboard/Dasboard'
 import Payment from './pages/Payment/Payment'
-//import PaymentPin from './pages/Payment/PIN'
+import PaymentPin from './pages/Payment/PIN'
 import PaymentConfirm from './pages/Payment/Payment_Confirm'
 //import TopUp from './pages/Topup/topup'
 //import History from './pages/Transaction/History'
@@ -17,9 +17,9 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/payment" element={<Payment />} />
+      <Route path="/payment/pin" element={<PaymentPin />} />
       <Route path="/payment/confirm" element={<PaymentConfirm />} />
-      {/* <Route path="/payment/pin" element={<PaymentPin />} />
-      <Route path="/topup" element={<TopUp />} />
+      {/* <Route path="/topup" element={<TopUp />} />
       <Route path="/transaction" element={<History />} />
       <Route path="/profile" element={<Profile />} /> */}
     </Routes>
