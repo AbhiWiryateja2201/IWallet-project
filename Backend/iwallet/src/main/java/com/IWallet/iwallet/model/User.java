@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data // Lombok untuk otomatisasi Getter, Setter, dll
 @Entity
@@ -16,6 +17,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
+
+    @Column(name = "public_id", unique = true, nullable = false)
+    private String publicId = UUID.randomUUID().toString();
 
     @Column(name = "full_name", nullable = false)
     private String fullName;
@@ -43,4 +47,11 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    void ensurePublicId() {
+        if (publicId == null || publicId.isBlank()) {
+            publicId = UUID.randomUUID().toString();
+        }
+    }
 }

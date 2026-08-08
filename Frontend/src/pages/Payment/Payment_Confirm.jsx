@@ -1,303 +1,212 @@
 export default function PaymentConfirm() {
   return (
-    <div style={{width: '100%', height: '100%', paddingLeft: 256, position: 'relative', background: 'linear-gradient(0deg, #FEF7FF 0%, #FEF7FF 100%), white', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-    <div style={{width: 1020, minHeight: 1024, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-        <div style={{alignSelf: 'stretch', height: 64, paddingLeft: 40, paddingRight: 40, background: 'rgba(255, 255, 255, 0.80)', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderBottom: '1px rgba(204, 195, 216, 0.30) solid', backdropFilter: 'blur(12px)', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex'}}>
-            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#630ED4', fontSize: 20, fontFamily: 'Inter', fontWeight: '600', lineHeight: 28, wordWrap: 'break-word'}}>Konfirmasi Pembayaran</div>
-            </div>
-            <div style={{justifyContent: 'flex-start', alignItems: 'center', gap: 24, display: 'flex'}}>
-                <div style={{paddingTop: 1.62, paddingBottom: 0.01, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 16, height: 20, background: '#4A4455'}} />
-                    <div style={{width: 8, height: 8, left: 12.02, top: -4, position: 'absolute', background: '#BA1A1A', borderRadius: 9999}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 20, height: 20, background: '#4A4455'}} />
-                </div>
-                <div style={{paddingLeft: 16, borderLeft: '1px rgba(204, 195, 216, 0.30) solid', justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'flex'}}>
-                    <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-end', display: 'flex'}}>
-                            <div style={{textAlign: 'right', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 12, fontFamily: 'Inter', fontWeight: '700', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Alex Johnson</div>
-                        </div>
-                        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-end', display: 'flex'}}>
-                            <div style={{textAlign: 'right', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 10, fontFamily: 'Inter', fontWeight: '500', lineHeight: 15, wordWrap: 'break-word'}}>Premium Member</div>
-                        </div>
-                    </div>
-                    <img style={{width: 40, height: 40, position: 'relative', borderRadius: 9999, border: '2px #7C3AED solid'}} src="https://placehold.co/40x40" />
-                </div>
-            </div>
+    <div className="flex w-full h-screen bg-[#FEF7FF] text-[#1D1A24] overflow-hidden font-sans">
+      {/* Left Sidebar */}
+      <aside className="w-64 h-full bg-white border-r border-[#CCC3D8]/20 shadow-sm flex-col hidden lg:flex">
+        <div className="p-6 pb-8 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#630ED4] flex items-center justify-center shrink-0">
+            <img src="https://placehold.co/40x40" alt="logo" className="rounded-xl w-full h-full object-cover" />
+          </div>
+          <div className="flex flex-col">
+            <h1 className="text-xl font-black text-[#630ED4] leading-tight">IWallet</h1>
+            <span className="text-[10px] font-bold text-[#4A4455] uppercase tracking-widest">Premium Digital<br/>Wallet</span>
+          </div>
         </div>
-        <div style={{width: '100%', maxWidth: 1280, padding: 40, justifyContent: 'center', alignItems: 'flex-start', display: 'inline-flex'}}>
-            <div style={{flex: '1 1 0', alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 32, display: 'inline-flex'}}>
-                <div style={{alignSelf: 'stretch', padding: 24, background: 'white', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.03)', borderRadius: 24, outline: '1px rgba(204, 195, 216, 0.10) solid', outlineOffset: '-1px', justifyContent: 'flex-start', alignItems: 'center', gap: 24, display: 'inline-flex'}}>
-                    <div style={{width: 80, height: 80, background: '#F9F1FF', overflow: 'hidden', borderRadius: 16, outline: '1px rgba(204, 195, 216, 0.20) solid', outlineOffset: '-1px', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
-                        <img style={{flex: '1 1 0', alignSelf: 'stretch', position: 'relative'}} src="https://placehold.co/78x78" />
-                    </div>
-                    <div style={{flex: '1 1 0', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 4, display: 'inline-flex'}}>
-                        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                            <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#630ED4', fontSize: 10, fontFamily: 'Inter', fontWeight: '700', textTransform: 'uppercase', lineHeight: 15, letterSpacing: 0.50, wordWrap: 'break-word'}}>MERCHANT PARTNER</div>
-                        </div>
-                        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                            <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 24, fontFamily: 'Inter', fontWeight: '600', lineHeight: 32, wordWrap: 'break-word'}}>The Daily Grind Coffee</div>
-                        </div>
-                        <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-                            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{width: 12.83, height: 12.25, background: '#4A4455'}} />
-                            </div>
-                            <div style={{width: 189.44, height: 21, position: 'relative'}}>
-                                <div style={{left: 0, top: -0.50, position: 'absolute', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', lineHeight: 20, wordWrap: 'break-word'}}>Merchant ID: </div>
-                                <div style={{left: 88.61, top: 1, position: 'absolute', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 14, fontFamily: 'Liberation Mono', fontWeight: '700', lineHeight: 20, wordWrap: 'break-word'}}>MCH-99283-ID</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{width: 128.66, height: 24, position: 'relative'}}>
-                        <div style={{paddingLeft: 12, paddingRight: 12, paddingTop: 3.50, paddingBottom: 3.50, left: 0, top: 2, position: 'absolute', background: '#F3EBFA', borderRadius: 9999, justifyContent: 'flex-end', alignItems: 'flex-start', display: 'inline-flex'}}>
-                            <div style={{textAlign: 'right', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#630ED4', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Verified Merchant</div>
-                        </div>
-                    </div>
-                </div>
-                <div style={{alignSelf: 'stretch', padding: 32, background: 'white', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.03)', borderRadius: 24, outline: '1px rgba(204, 195, 216, 0.10) solid', outlineOffset: '-1px', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 15.50, display: 'flex'}}>
-                    <div style={{alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex'}}>
-                        <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                            <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 20, fontFamily: 'Inter', fontWeight: '600', lineHeight: 28, wordWrap: 'break-word'}}>Nominal Pembayaran</div>
-                        </div>
-                        <div style={{paddingLeft: 16, paddingRight: 16, paddingTop: 8, paddingBottom: 8, background: '#F9F1FF', borderRadius: 16, justifyContent: 'flex-start', alignItems: 'center', gap: 7.99, display: 'flex'}}>
-                            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{width: 19, height: 18, background: '#630ED4'}} />
-                            </div>
-                            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column'}}><span style={{color: '#4A4455', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Saldo: </span><span style={{color: '#1D1A24', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Rp 1.250.000</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{alignSelf: 'stretch', paddingTop: 8.50, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                        <div style={{alignSelf: 'stretch', paddingTop: 32, paddingBottom: 32, paddingLeft: 80, paddingRight: 24, background: 'white', overflow: 'hidden', borderRadius: 16, outline: '2px rgba(204, 195, 216, 0.20) solid', outlineOffset: '-2px', justifyContent: 'center', alignItems: 'flex-start', display: 'inline-flex'}}>
-                            <div style={{flex: '1 1 0', overflow: 'hidden', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 32, fontFamily: 'Inter', fontWeight: '700', lineHeight: 40, wordWrap: 'break-word'}}>150.000</div>
-                            </div>
-                        </div>
-                        <div style={{height: 40, left: 24, top: 42.50, position: 'absolute', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                            <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: 'rgba(74, 68, 85, 0.50)', fontSize: 32, fontFamily: 'Inter', fontWeight: '700', lineHeight: 40, wordWrap: 'break-word'}}>Rp</div>
-                        </div>
-                        <div style={{left: 832, top: 82.50, position: 'absolute', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                            <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{width: 18, height: 18, background: '#630ED4'}} />
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-                        <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                            <div style={{width: 11.67, height: 11.67, background: '#4A4455'}} />
-                        </div>
-                        <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', lineHeight: 20, wordWrap: 'break-word'}}>Pastikan nominal pembayaran sudah sesuai dengan tagihan merchant.</div>
-                    </div>
-                </div>
-                <div style={{alignSelf: 'stretch', justifyContent: 'center', alignItems: 'flex-start', gap: 24, display: 'inline-flex'}}>
-                    <div style={{flex: '1 1 0', padding: 24, background: 'white', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.03)', borderRadius: 24, outline: '1px rgba(204, 195, 216, 0.10) solid', outlineOffset: '-1px', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 16, display: 'inline-flex'}}>
-                            <div style={{width: 48, height: 48, background: '#FFDCC6', borderRadius: 12, justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
-                                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                    <div style={{width: 19.98, height: 20, background: '#7D3D00'}} />
-                                </div>
-                            </div>
-                            <div style={{flex: '1 1 0', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                                    <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 12, fontFamily: 'Inter', fontWeight: '700', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Promo Cashback</div>
-                                </div>
-                                <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                                    <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 10, fontFamily: 'Inter', fontWeight: '400', lineHeight: 15, wordWrap: 'break-word'}}>2 Voucher tersedia</div>
-                                </div>
-                            </div>
-                            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{width: 7.40, height: 12, background: '#4A4455'}} />
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{flex: '1 1 0', padding: 24, background: 'white', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.03)', borderRadius: 24, outline: '1px rgba(204, 195, 216, 0.10) solid', outlineOffset: '-1px', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 16, display: 'inline-flex'}}>
-                            <div style={{width: 48, height: 48, background: '#EADDFF', borderRadius: 12, justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
-                                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                    <div style={{width: 22, height: 16, background: '#630ED4'}} />
-                                </div>
-                            </div>
-                            <div style={{flex: '1 1 0', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                                    <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 12, fontFamily: 'Inter', fontWeight: '700', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Metode Bayar</div>
-                                </div>
-                                <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                                    <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 10, fontFamily: 'Inter', fontWeight: '400', lineHeight: 15, wordWrap: 'break-word'}}>IWallet Balance</div>
-                                </div>
-                            </div>
-                            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                                <div style={{width: 7.40, height: 12, background: '#4A4455'}} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        <nav className="flex-1 px-4 flex flex-col gap-1">
+          <a href="#" className="flex items-center gap-3 px-4 py-3 bg-[#7C3AED] rounded-xl text-[#EDE0FF] font-medium text-sm">
+            <div className="w-4 h-4 bg-[#EDE0FF] rounded-sm"></div>
+            Dashboard
+          </a>
+          <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#4A4455] font-medium text-sm hover:bg-[#F9F1FF] transition-colors">
+            <div className="w-4 h-4 bg-[#4A4455] rounded-sm"></div>
+            Wallet
+          </a>
+          <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#4A4455] font-medium text-sm hover:bg-[#F9F1FF] transition-colors">
+            <div className="w-4 h-4 bg-[#4A4455] rounded-sm"></div>
+            History
+          </a>
+          <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#4A4455] font-medium text-sm hover:bg-[#F9F1FF] transition-colors">
+            <div className="w-4 h-4 bg-[#4A4455] rounded-sm"></div>
+            Profile
+          </a>
+        </nav>
+
+        <div className="px-4 py-4 border-t border-[#CCC3D8]/20 flex flex-col gap-1">
+          <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#4A4455] font-medium text-sm hover:bg-[#F9F1FF] transition-colors">
+            <div className="w-5 h-5 bg-[#4A4455] rounded-sm"></div>
+            Settings
+          </a>
+          <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#BA1A1A] font-medium text-sm hover:bg-red-50 transition-colors">
+            <div className="w-4 h-4 bg-[#BA1A1A] rounded-sm"></div>
+            Logout
+          </a>
         </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col h-full overflow-y-auto">
+        {/* Header */}
+        <header className="h-16 px-6 lg:px-10 bg-white/80 backdrop-blur-md border-b border-[#CCC3D8]/30 flex items-center justify-between sticky top-0 z-10 shrink-0">
+          <h2 className="text-xl font-semibold text-[#630ED4]">Konfirmasi Pembayaran</h2>
+          
+          <div className="flex items-center gap-4 sm:gap-6">
+            <div className="relative hidden sm:block">
+              <div className="w-4 h-5 bg-[#4A4455]"></div>
+              <div className="w-2 h-2 bg-[#BA1A1A] rounded-full absolute -top-1 -right-1"></div>
+            </div>
+            <div className="w-5 h-5 bg-[#4A4455] hidden sm:block"></div>
+            <div className="sm:pl-4 sm:border-l border-[#CCC3D8]/30 flex items-center gap-3">
+              <div className="flex flex-col items-end">
+                <span className="text-xs font-bold text-[#1D1A24]">Alex Johnson</span>
+                <span className="text-[10px] font-medium text-[#4A4455]">Premium Member</span>
+              </div>
+              <img src="https://placehold.co/40x40" alt="profile" className="w-10 h-10 rounded-full border-2 border-[#7C3AED]" />
+            </div>
+          </div>
+        </header>
+
+        {/* Content Body */}
+        <div className="flex-1 w-full max-w-[1280px] mx-auto p-4 sm:p-6 lg:p-10 flex flex-col xl:flex-row gap-6 sm:gap-8">
+          
+          {/* Left Column (Payment Details) */}
+          <div className="flex-1 flex flex-col gap-6 sm:gap-8">
+            
+            {/* Merchant Card */}
+            <div className="bg-white p-5 sm:p-6 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#CCC3D8]/10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 relative">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#F9F1FF] rounded-2xl border border-[#CCC3D8]/20 flex items-center justify-center overflow-hidden shrink-0">
+                <img src="https://placehold.co/78x78" alt="merchant" className="w-full h-full object-cover" />
+              </div>
+              <div className="flex flex-col gap-1 flex-1">
+                <span className="text-[10px] font-bold text-[#630ED4] tracking-wider uppercase">Merchant Partner</span>
+                <h3 className="text-xl sm:text-2xl font-semibold text-[#1D1A24]">The Daily Grind Coffee</h3>
+                <div className="flex items-center gap-2 mt-1">
+                  <div className="w-3 h-3 bg-[#4A4455]"></div>
+                  <span className="text-xs sm:text-sm text-[#4A4455]">Merchant ID: <span className="font-mono font-bold">MCH-99283-ID</span></span>
+                </div>
+              </div>
+              <div className="absolute top-5 right-5 sm:static bg-[#F3EBFA] px-3 py-1.5 rounded-full">
+                <span className="text-[10px] sm:text-xs font-medium text-[#630ED4]">Verified Merchant</span>
+              </div>
+            </div>
+
+            {/* Nominal Card */}
+            <div className="bg-white p-5 sm:p-6 md:p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#CCC3D8]/10 flex flex-col gap-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <h3 className="text-lg sm:text-xl font-semibold text-[#1D1A24]">Nominal Pembayaran</h3>
+                <div className="bg-[#F9F1FF] px-4 py-2 rounded-2xl flex items-center gap-2">
+                  <div className="w-4 h-4 bg-[#630ED4]"></div>
+                  <span className="text-xs font-medium text-[#4A4455]">Saldo: <span className="text-[#1D1A24]">Rp 1.250.000</span></span>
+                </div>
+              </div>
+              
+              <div className="relative mt-2">
+                <div className="bg-white py-5 sm:py-6 md:py-8 pl-12 sm:pl-16 pr-4 sm:pr-6 rounded-2xl border-2 border-[#CCC3D8]/20 flex items-center">
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1D1A24]">150.000</span>
+                </div>
+                <div className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2">
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#4A4455]/50">Rp</span>
+                </div>
+                <div className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 bg-[#630ED4]"></div>
+              </div>
+              
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-[#4A4455]">
+                <div className="w-3 h-3 bg-[#4A4455] shrink-0"></div>
+                <p>Pastikan nominal pembayaran sudah sesuai dengan tagihan merchant.</p>
+              </div>
+            </div>
+
+            {/* Promos & Methods */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              <div className="bg-white p-5 sm:p-6 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#CCC3D8]/10 flex items-center gap-4 cursor-pointer hover:border-[#630ED4]/30 transition-colors">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FFDCC6] rounded-xl flex items-center justify-center shrink-0">
+                  <div className="w-4 sm:w-5 h-4 sm:h-5 bg-[#7D3D00]"></div>
+                </div>
+                <div className="flex flex-col flex-1">
+                  <span className="text-xs font-bold text-[#1D1A24]">Promo Cashback</span>
+                  <span className="text-[10px] text-[#4A4455]">2 Voucher tersedia</span>
+                </div>
+                <div className="w-2 h-3 bg-[#4A4455]"></div>
+              </div>
+              
+              <div className="bg-white p-5 sm:p-6 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#CCC3D8]/10 flex items-center gap-4 cursor-pointer hover:border-[#630ED4]/30 transition-colors">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#EADDFF] rounded-xl flex items-center justify-center shrink-0">
+                  <div className="w-5 h-4 bg-[#630ED4]"></div>
+                </div>
+                <div className="flex flex-col flex-1">
+                  <span className="text-xs font-bold text-[#1D1A24]">Metode Bayar</span>
+                  <span className="text-[10px] text-[#4A4455]">IWallet Balance</span>
+                </div>
+                <div className="w-2 h-3 bg-[#4A4455]"></div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Right Column (Summary) */}
+          <div className="w-full xl:w-80 flex flex-col gap-6 shrink-0">
+            <div className="bg-white p-6 md:p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#CCC3D8]/10 flex flex-col">
+              <h3 className="text-lg sm:text-xl font-semibold text-[#1D1A24] mb-6 sm:mb-8">Ringkasan<br className="hidden sm:block" /> Transaksi</h3>
+              
+              <div className="flex flex-col gap-5 sm:gap-6">
+                <div className="flex justify-between items-start">
+                  <div className="flex flex-col">
+                    <span className="text-xs font-medium text-[#4A4455]">Nominal Transaksi</span>
+                    <span className="text-[10px] text-[#4A4455] mt-1">Subtotal Tagihan</span>
+                  </div>
+                  <span className="text-xs font-bold text-[#1D1A24]">Rp 150.000</span>
+                </div>
+                
+                <div className="flex justify-between items-start">
+                  <div className="flex flex-col">
+                    <span className="text-xs font-medium text-[#4A4455]">Biaya Layanan</span>
+                    <span className="text-[10px] text-[#4A4455] mt-1">IWallet processing fee</span>
+                  </div>
+                  <span className="text-xs font-bold text-[#1D1A24]">Rp 1.500</span>
+                </div>
+                
+                <div className="flex justify-between items-start">
+                  <div className="flex flex-col">
+                    <span className="text-xs font-medium text-[#16A34A]">Diskon Promo</span>
+                    <span className="text-[10px] text-[#4A4455] mt-1">Cashback Promo Kopi</span>
+                  </div>
+                  <span className="text-xs font-bold text-[#16A34A]">-Rp 5.000</span>
+                </div>
+                
+                <div className="mt-2 pt-5 sm:pt-6 border-t border-[#CCC3D8]/50 flex justify-between items-end">
+                  <div className="flex flex-col">
+                    <span className="text-sm sm:text-base font-semibold text-[#1D1A24]">Total Bayar</span>
+                    <span className="text-[10px] text-[#4A4455] mt-1">Sudah termasuk pajak & biaya</span>
+                  </div>
+                  <span className="text-sm sm:text-base font-semibold text-[#630ED4]">Rp 146.500</span>
+                </div>
+              </div>
+              
+              <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:gap-4">
+                <button className="w-full py-3.5 sm:py-4 bg-gradient-to-br from-[#7C3AED] to-[#630ED4] rounded-2xl text-white text-base sm:text-lg font-semibold shadow-lg shadow-[#630ED4]/20 hover:opacity-90 transition-opacity flex items-center justify-center gap-3">
+                  <div className="w-4 h-5 bg-white mask-icon rounded-sm"></div>
+                  Bayar Sekarang
+                </button>
+                <button className="w-full py-3 rounded-2xl text-xs font-medium text-[#4A4455] hover:bg-gray-50 transition-colors">
+                  Batalkan Transaksi
+                </button>
+              </div>
+            </div>
+            
+            {/* Security Badge */}
+            <div className="bg-[#F9F1FF] p-4 rounded-2xl flex items-center gap-4">
+              <div className="w-10 h-10 bg-white rounded-full shadow-sm flex items-center justify-center shrink-0">
+                <div className="w-4 h-5 bg-[#630ED4]"></div>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-[#1D1A24]">Pembayaran Aman</span>
+                <span className="text-[10px] text-[#4A4455] mt-0.5 leading-snug">Enkripsi 256-bit AES tingkat bank.</span>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </main>
     </div>
-    <div style={{width: 256, height: 1024, padding: 16, left: 0, top: 0, position: 'absolute', background: 'white', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderRight: '1px rgba(204, 195, 216, 0.20) solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'flex'}}>
-        <div style={{alignSelf: 'stretch', paddingBottom: 32, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-            <div style={{alignSelf: 'stretch', paddingLeft: 8, paddingRight: 8, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{width: 39.98, height: 40, background: 'linear-gradient(135deg, #7C3AED 0%, #630ED4 100%)', borderRadius: 12, justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
-                    <img style={{flex: '1 1 0', alignSelf: 'stretch', position: 'relative', borderRadius: 12}} src="https://placehold.co/40x40" />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                        <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#630ED4', fontSize: 20, fontFamily: 'Inter', fontWeight: '900', lineHeight: 28, wordWrap: 'break-word'}}>IWallet</div>
-                    </div>
-                    <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                        <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 10, fontFamily: 'Inter', fontWeight: '700', textTransform: 'uppercase', lineHeight: 15, letterSpacing: 1, wordWrap: 'break-word'}}>PREMIUM DIGITAL<br/>WALLET</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style={{alignSelf: 'stretch', flex: '1 1 0', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 4, display: 'flex'}}>
-            <div style={{alignSelf: 'stretch', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, background: '#7C3AED', borderRadius: 12, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 18, height: 18, background: '#EDE0FF'}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#EDE0FF', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Dashboard</div>
-                </div>
-            </div>
-            <div style={{alignSelf: 'stretch', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, borderRadius: 12, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 19, height: 18, background: '#4A4455'}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Wallet</div>
-                </div>
-            </div>
-            <div style={{alignSelf: 'stretch', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, borderRadius: 12, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 18, height: 18, background: '#4A4455'}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>History</div>
-                </div>
-            </div>
-            <div style={{alignSelf: 'stretch', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, borderRadius: 12, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 16, height: 16, background: '#4A4455'}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Profile</div>
-                </div>
-            </div>
-        </div>
-        <div style={{alignSelf: 'stretch', paddingTop: 16, borderTop: '1px rgba(204, 195, 216, 0.20) solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 4, display: 'flex'}}>
-            <div style={{alignSelf: 'stretch', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, borderRadius: 12, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 20.10, height: 20, background: '#4A4455'}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Settings</div>
-                </div>
-            </div>
-            <div style={{alignSelf: 'stretch', paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 12, borderRadius: 12, justifyContent: 'flex-start', alignItems: 'center', gap: 12, display: 'inline-flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 18, height: 18, background: '#BA1A1A'}} />
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#BA1A1A', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Logout</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style={{width: 296, height: 1024, padding: 16, left: 0, top: 0, position: 'absolute', background: 'white', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderRight: '1px rgba(204, 195, 216, 0.20) solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'flex'}}>
-        <div style={{alignSelf: 'stretch', flex: '1 1 0', padding: 32, background: 'white', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.03)', borderRadius: 24, outline: '1px rgba(204, 195, 216, 0.10) solid', outlineOffset: '-1px', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-            <div style={{alignSelf: 'stretch', paddingBottom: 32, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 20, fontFamily: 'Inter', fontWeight: '600', lineHeight: 28, wordWrap: 'break-word'}}>Ringkasan<br/>Transaksi</div>
-                </div>
-            </div>
-            <div style={{alignSelf: 'stretch', height: 357, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 24, display: 'flex'}}>
-                <div style={{alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                            <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Nominal<br/>Transaksi</div>
-                        </div>
-                        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                            <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 10, fontFamily: 'Inter', fontWeight: '400', lineHeight: 15, wordWrap: 'break-word'}}>Subtotal Tagihan</div>
-                        </div>
-                    </div>
-                    <div style={{width: 66, height: 32, position: 'relative'}}>
-                        <div style={{width: 70, height: 27, left: 0, top: 0, position: 'absolute', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 12, fontFamily: 'Inter', fontWeight: '700', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Rp 150.000</div>
-                    </div>
-                </div>
-                <div style={{alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                            <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Biaya Layanan</div>
-                        </div>
-                        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                            <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 10, fontFamily: 'Inter', fontWeight: '400', lineHeight: 15, wordWrap: 'break-word'}}>IWallet processing fee</div>
-                        </div>
-                    </div>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 12, fontFamily: 'Inter', fontWeight: '700', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Rp 1.500</div>
-                </div>
-                <div style={{width: 203, justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 137, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                            <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#16A34A', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Diskon Promo</div>
-                        </div>
-                        <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                            <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 10, fontFamily: 'Inter', fontWeight: '400', lineHeight: 15, wordWrap: 'break-word'}}>Cashback Promo<br/>Kopi</div>
-                        </div>
-                    </div>
-                    <div style={{height: 12, paddingRight: 21.65, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                        <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#16A34A', fontSize: 12, fontFamily: 'Inter', fontWeight: '700', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>-Rp 5.000</div>
-                    </div>
-                </div>
-                <div style={{alignSelf: 'stretch', paddingTop: 24, borderTop: '1px rgba(204, 195, 216, 0.50) solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{alignSelf: 'stretch', height: 54, justifyContent: 'space-between', alignItems: 'flex-end', display: 'inline-flex'}}>
-                        <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                            <div style={{width: 109, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                                <div style={{alignSelf: 'stretch', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 16, fontFamily: 'Inter', fontWeight: '600', lineHeight: 28, wordWrap: 'break-word'}}>Total Bayar</div>
-                            </div>
-                            <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                                <div style={{width: 89, justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 10, fontFamily: 'Inter', fontWeight: '400', lineHeight: 15, wordWrap: 'break-word'}}>Sudah termasuk pajak &amp; biaya</div>
-                            </div>
-                        </div>
-                        <div style={{width: 100, height: 43, position: 'relative'}}>
-                            <div style={{width: 106, height: 27, left: 2, top: 11, position: 'absolute', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#630ED4', fontSize: 16, fontFamily: 'Inter', fontWeight: '600', lineHeight: 32, wordWrap: 'break-word'}}>Rp 146.500</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style={{alignSelf: 'stretch', paddingTop: 32, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'flex'}}>
-                    <div style={{alignSelf: 'stretch', paddingTop: 20, paddingBottom: 20, paddingRight: 14.64, position: 'relative', background: 'linear-gradient(149deg, #7C3AED 0%, #630ED4 100%)', borderRadius: 16, justifyContent: 'center', alignItems: 'center', gap: 26.64, display: 'inline-flex'}}>
-                        <div style={{width: 197, height: 96, left: 0, top: 0, position: 'absolute', background: 'rgba(255, 255, 255, 0)', boxShadow: '0px 4px 6px -4px rgba(99, 14, 212, 0.20), 0px 10px 15px -3px rgba(99, 14, 212, 0.20)', borderRadius: 16}} />
-                        <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
-                            <div style={{width: 16, height: 20, background: 'white'}} />
-                        </div>
-                        <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: 'white', fontSize: 20, fontFamily: 'Inter', fontWeight: '600', lineHeight: 28, wordWrap: 'break-word'}}>Bayar<br/>Sekarang</div>
-                    </div>
-                    <div style={{alignSelf: 'stretch', paddingTop: 16, paddingBottom: 16, borderRadius: 16, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                        <div style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 12, fontFamily: 'Inter', fontWeight: '500', lineHeight: 16, letterSpacing: 0.12, wordWrap: 'break-word'}}>Batalkan Transaksi</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style={{alignSelf: 'stretch', padding: 16, background: '#F9F1FF', borderRadius: 16, justifyContent: 'flex-start', alignItems: 'center', gap: 16, display: 'inline-flex'}}>
-            <div style={{width: 34.83, height: 40, background: 'white', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)', borderRadius: 9999, justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
-                <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                    <div style={{width: 16, height: 20, background: '#630ED4'}} />
-                </div>
-            </div>
-            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#1D1A24', fontSize: 11, fontFamily: 'Inter', fontWeight: '700', lineHeight: 16.50, wordWrap: 'break-word'}}>Pembayaran Aman</div>
-                </div>
-                <div style={{alignSelf: 'stretch', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-                    <div style={{justifyContent: 'center', display: 'flex', flexDirection: 'column', color: '#4A4455', fontSize: 10, fontFamily: 'Inter', fontWeight: '400', lineHeight: 15, wordWrap: 'break-word'}}>Enkripsi 256-bit AES tingkat<br/>bank.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-  )
+  );
 }
