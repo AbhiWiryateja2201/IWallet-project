@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../services/authService";
+import ProfileIcon from "../../assets/icons/register/Profile.svg";
+import MailIcon from "../../assets/icons/register/mail.svg";
+import CallIcon from "../../assets/icons/register/call.svg";
+import LockIcon from "../../assets/icons/register/Lock.svg";
+import EyeIcon from "../../assets/icons/register/Eye.svg";
+import EyeOffIcon from "../../assets/icons/register/EyeOff.svg";
+import HelpIcon from "../../assets/icons/register/help.svg";
+import VerifiedUserIcon from "../../assets/icons/register/verified_user.svg";
+import BoltIcon from "../../assets/icons/register/bolt.svg";
+import RedeemIcon from "../../assets/icons/register/redeem.svg";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -96,7 +106,7 @@ export default function Register() {
           <div className="space-y-[16px]">
             <div className="flex items-center gap-[16px] glass-panel p-4 rounded-xl">
               <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center text-white">
-                <span className="material-symbols-outlined">verified_user</span>
+                <img src={VerifiedUserIcon} alt="" className="w-5 h-5" />
               </div>
               <p className="text-[20px] leading-[28px] font-semibold text-white">
                 Keamanan Tingkat Bank
@@ -104,7 +114,7 @@ export default function Register() {
             </div>
             <div className="flex items-center gap-[16px] glass-panel p-4 rounded-xl">
               <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center text-white">
-                <span className="material-symbols-outlined">bolt</span>
+                <img src={BoltIcon} alt="" className="w-5 h-5" />
               </div>
               <p className="text-[20px] leading-[28px] font-semibold text-white">
                 Transfer Real-time
@@ -112,7 +122,7 @@ export default function Register() {
             </div>
             <div className="flex items-center gap-[16px] glass-panel p-4 rounded-xl">
               <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center text-white">
-                <span className="material-symbols-outlined">redeem</span>
+                <img src={RedeemIcon} alt="" className="w-5 h-5" />
               </div>
               <p className="text-[20px] leading-[28px] font-semibold text-white">
                 Bebas Biaya Admin
@@ -161,9 +171,7 @@ export default function Register() {
               </label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
-                  <span className="material-symbols-outlined text-[20px]">
-                    person
-                  </span>
+                  <img src={ProfileIcon} alt="nama" className="w-4 h-4" />
                 </div>
                 <input
                   className="w-full pl-12 pr-4 py-3 bg-surface-container-low border-none rounded-xl text-[14px] leading-[20px] text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 transition-all outline-none"
@@ -184,9 +192,7 @@ export default function Register() {
               </label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
-                  <span className="material-symbols-outlined text-[20px]">
-                    mail
-                  </span>
+                  <img src={MailIcon} alt="email" className="w-4 h-4" />
                 </div>
                 <input
                   className="w-full pl-12 pr-4 py-3 bg-surface-container-low border-none rounded-xl text-[14px] leading-[20px] text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 transition-all outline-none"
@@ -207,9 +213,7 @@ export default function Register() {
               </label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
-                  <span className="material-symbols-outlined text-[20px]">
-                    phone
-                  </span>
+                  <img src={CallIcon} alt="telepon" className="w-4 h-4" />
                 </div>
                 <input
                   className="w-full pl-12 pr-4 py-3 bg-surface-container-low border-none rounded-xl text-[14px] leading-[20px] text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 transition-all outline-none"
@@ -230,9 +234,7 @@ export default function Register() {
               </label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
-                  <span className="material-symbols-outlined text-[20px]">
-                    lock
-                  </span>
+                  <img src={LockIcon} alt="kata sandi" className="w-4 h-5" />
                 </div>
                 <input
                   className="w-full pl-12 pr-12 py-3 bg-surface-container-low border-none rounded-xl text-[14px] leading-[20px] text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 transition-all outline-none"
@@ -249,15 +251,15 @@ export default function Register() {
                   onClick={() => setShowPassword(!showPassword)}
                   type="button"
                 >
-                  <span className="material-symbols-outlined text-[20px]">
-                    {showPassword ? "visibility_off" : "visibility"}
-                  </span>
+                  <img
+                    src={showPassword ? EyeIcon : EyeOffIcon}
+                    alt={showPassword ? "sembunyikan" : "tampilkan"}
+                    className="w-4 h-4"
+                  />
                 </button>
               </div>
               <p className="text-[10px] leading-[12px] text-on-secondary-container mt-1 ml-1 flex items-center gap-1">
-                <span className="material-symbols-outlined text-[14px]">
-                  info
-                </span>
+                <img src={HelpIcon} alt="info" className="w-3.5 h-3.5" />
                 Minimal 8 karakter dengan kombinasi huruf dan angka
               </p>
             </div>
@@ -269,9 +271,7 @@ export default function Register() {
               </label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
-                  <span className="material-symbols-outlined text-[20px]">
-                    lock
-                  </span>
+                  <img src={LockIcon} alt="kata sandi" className="w-4 h-5" />
                 </div>
                 <input
                   className="w-full pl-12 pr-12 py-3 bg-surface-container-low border-none rounded-xl text-[14px] leading-[20px] text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 transition-all outline-none"
@@ -288,9 +288,11 @@ export default function Register() {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   type="button"
                 >
-                  <span className="material-symbols-outlined text-[20px]">
-                    {showConfirmPassword ? "visibility_off" : "visibility"}
-                  </span>
+                  <img
+                    src={showConfirmPassword ? EyeIcon : EyeOffIcon}
+                    alt={showConfirmPassword ? "sembunyikan" : "tampilkan"}
+                    className="w-4 h-4"
+                  />
                 </button>
               </div>
             </div>
@@ -302,9 +304,7 @@ export default function Register() {
               </label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
-                  <span className="material-symbols-outlined text-[20px]">
-                    pin
-                  </span>
+                  <img src={LockIcon} alt="pin" className="w-4 h-5" />
                 </div>
                 <input
                   className="w-full pl-12 pr-12 py-3 bg-surface-container-low border-none rounded-xl text-[14px] leading-[20px] text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 transition-all outline-none"
@@ -323,9 +323,11 @@ export default function Register() {
                   onClick={() => setShowPin(!showPin)}
                   type="button"
                 >
-                  <span className="material-symbols-outlined text-[20px]">
-                    {showPin ? "visibility_off" : "visibility"}
-                  </span>
+                  <img
+                    src={showPin ? EyeIcon : EyeOffIcon}
+                    alt={showPin ? "sembunyikan" : "tampilkan"}
+                    className="w-4 h-4"
+                  />
                 </button>
               </div>
             </div>
