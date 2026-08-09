@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authService";
 import LockIcon from "../../assets/icons/login/Lock.svg";
-import EyeIcon from "../../assets/icons/login/Eye.svg";
 import ArrowIcon from "../../assets/icons/login/panah.svg";
 import DefenceIcon from "../../assets/icons/login/defence.svg";
 import KilatIcon from "../../assets/icons/login/kilat.svg";
@@ -11,7 +10,6 @@ import MailIcon from "../../assets/icons/login/mail.svg";
 export default function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -47,7 +45,7 @@ export default function Login() {
       </div>
 
       {/* Main Container */}
-      <main className="w-full max-w-[1000px] grid md:grid-cols-2 bg-surface-container-lowest rounded-3xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(243,232,255,1)] relative z-10 border border-outline-variant/20">
+      <main className="w-full max-w-5xl grid md:grid-cols-2 bg-surface-container-lowest rounded-3xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(243,232,255,1)] relative z-10 border border-outline-variant/20">
         
         {/* Left Panel - Branding */}
         <div className="hidden md:flex flex-col justify-center items-center p-16 primary-gradient border-r border-outline-variant/30">
@@ -109,7 +107,7 @@ export default function Login() {
 
         {/* Right Panel - Form */}
         <div className="flex flex-col justify-center p-8 md:p-16 bg-surface-container-lowest">
-          <div className="w-full max-w-sm mx-auto">
+          <div className="w-full max-w-xs mx-auto">
             {/* Mobile Logo */}
             <div className="md:hidden flex justify-center mb-10">
               <div className="w-16 h-16 bg-primary-container rounded-2xl flex items-center justify-center overflow-hidden">
@@ -139,10 +137,10 @@ export default function Login() {
                     <img src={MailIcon} alt="" className="w-5 h-5" />
                   </div>
                   <input
-                    className="w-full pl-12 pr-4 py-4 bg-surface-container border border-outline-variant/50 rounded-xl font-body-md text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-on-surface"
+                    className="w-full max-w-full pl-12 pr-4 py-3 bg-surface-container border border-outline-variant/50 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-on-surface"
                     id="email"
                     name="email"
-                    placeholder="Emal"
+                    placeholder="Email"
                     required
                     type="text"
                     value={formData.email}
@@ -153,11 +151,11 @@ export default function Login() {
 
               {/* Password Field */}
               <div className="space-y-2">
-                <div className="flex justify-between items-center px-1">
+                <div className="flex items-center">
                   <label className="text-[12px] leading-[16px] tracking-[0.01em] font-medium text-on-surface-variant" htmlFor="password">
                     Kata Sandi
                   </label>
-                  <a className="text-[12px] leading-[16px] font-medium text-primary hover:underline decoration-primary/30 underline-offset-4 cursor-pointer">
+                  <a className="ml-auto text-[12px] leading-[16px] font-medium text-primary tracking-[0.12px] hover:underline decoration-primary/30 underline-offset-4 cursor-pointer">
                     Lupa Kata Sandi?
                   </a>
                 </div>
@@ -166,27 +164,16 @@ export default function Login() {
                     <img src={LockIcon} alt="lock" className="w-4 h-5 opacity-70" />
                   </div>
                   <input
-                    className="w-full pl-12 pr-12 py-4 bg-surface-container border border-outline-variant/50 rounded-xl font-body-md text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-on-surface"
+                    className="w-full max-w-full pl-12 pr-4 py-3 bg-surface-container border border-outline-variant/50 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-on-surface"
                     id="password"
                     name="password"
                     placeholder="Min. 8 karakter"
                     required
-                    type={showPassword ? "text" : "password"}
+                    type="password"
                     minLength={8}
                     value={formData.password}
                     onChange={handleChange}
                   />
-                  <button
-                    className="absolute inset-y-0 right-4 flex items-center text-outline hover:text-on-surface-variant transition-colors"
-                    onClick={() => setShowPassword(!showPassword)}
-                    type="button"
-                  >
-                    <img
-                      src={EyeIcon}
-                      alt={showPassword ? "hide password" : "show password"}
-                      className="w-5 h-4 opacity-70"
-                    />
-                  </button>
                 </div>
               </div>
 
@@ -206,7 +193,7 @@ export default function Login() {
 
               {/* Submit Button */}
               <button
-                className="w-full primary-gradient text-white py-4 rounded-xl font-headline-sm text-headline-sm shadow-lg shadow-primary/20 active:scale-[0.98] transition-all transform flex items-center justify-center gap-2 group disabled:opacity-70"
+                className="w-full primary-gradient text-white py-4 rounded-xl text-base shadow-lg shadow-primary/20 active:scale-[0.98] transition-all transform flex items-center justify-center gap-2 group disabled:opacity-70"
                 type="submit"
                 disabled={loading}
               >
@@ -224,7 +211,7 @@ export default function Login() {
             {/* Message */}
             {message && (
               <div className={`mt-6 p-4 rounded-xl ${message.startsWith("Error") ? "bg-error-container text-on-error-container" : "bg-primary/10 text-primary"}`}>
-                <p className="font-body-md text-body-md text-center">{message}</p>
+                <p className="text-sm text-center">{message}</p>
               </div>
             )}
 

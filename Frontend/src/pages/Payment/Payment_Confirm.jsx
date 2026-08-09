@@ -1,212 +1,253 @@
-export default function PaymentConfirm() {
+import { useNavigate } from 'react-router-dom'
+
+const navItems = [
+  { icon: 'dashboard', label: 'Dashboard', path: '/dashboard' },
+  { icon: 'account_balance_wallet', label: 'Wallet', path: '/payment', active: true },
+  { icon: 'history', label: 'History', path: '/transaction' },
+  { icon: 'person', label: 'Profile', path: '/profile' },
+]
+
+function Sidebar({ items, onNavigate }) {
   return (
-    <div className="flex w-full h-screen bg-[#FEF7FF] text-[#1D1A24] overflow-hidden font-sans">
-      {/* Left Sidebar */}
-      <aside className="w-64 h-full bg-white border-r border-[#CCC3D8]/20 shadow-sm flex-col hidden lg:flex">
-        <div className="p-6 pb-8 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#630ED4] flex items-center justify-center shrink-0">
-            <img src="https://placehold.co/40x40" alt="logo" className="rounded-xl w-full h-full object-cover" />
+    <>
+      <div className="px-2 pb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#630ED4] flex items-center justify-center shadow-lg shadow-[#630ED4]/30">
+            <span className="material-symbols-outlined text-white text-2xl">wallet</span>
           </div>
-          <div className="flex flex-col">
-            <h1 className="text-xl font-black text-[#630ED4] leading-tight">IWallet</h1>
-            <span className="text-[10px] font-bold text-[#4A4455] uppercase tracking-widest">Premium Digital<br/>Wallet</span>
+          <div>
+            <p className="text-xl font-black text-[#630ED4] leading-none">IWallet</p>
+            <p className="text-[10px] font-bold uppercase tracking-[1px] text-[#4A4455] mt-1">Premium Digital Wallet</p>
           </div>
         </div>
+      </div>
 
-        <nav className="flex-1 px-4 flex flex-col gap-1">
-          <a href="#" className="flex items-center gap-3 px-4 py-3 bg-[#7C3AED] rounded-xl text-[#EDE0FF] font-medium text-sm">
-            <div className="w-4 h-4 bg-[#EDE0FF] rounded-sm"></div>
-            Dashboard
-          </a>
-          <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#4A4455] font-medium text-sm hover:bg-[#F9F1FF] transition-colors">
-            <div className="w-4 h-4 bg-[#4A4455] rounded-sm"></div>
-            Wallet
-          </a>
-          <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#4A4455] font-medium text-sm hover:bg-[#F9F1FF] transition-colors">
-            <div className="w-4 h-4 bg-[#4A4455] rounded-sm"></div>
-            History
-          </a>
-          <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#4A4455] font-medium text-sm hover:bg-[#F9F1FF] transition-colors">
-            <div className="w-4 h-4 bg-[#4A4455] rounded-sm"></div>
-            Profile
-          </a>
-        </nav>
+      <nav className="flex-1 flex flex-col gap-1">
+        {items.map((item) => (
+          <button
+            key={item.label}
+            type="button"
+            onClick={() => onNavigate(item.path)}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 ${
+              item.active
+                ? 'bg-[#7C3AED] text-[#EDE0FF] font-bold shadow-md shadow-[#630ED4]/20'
+                : 'text-[#4A4455] hover:bg-[#F9F1FF] active:scale-95'
+            }`}
+          >
+            <span className="material-symbols-outlined text-xl">{item.icon}</span>
+            <span className="text-xs tracking-[0.01em] font-medium">{item.label}</span>
+          </button>
+        ))}
+      </nav>
 
-        <div className="px-4 py-4 border-t border-[#CCC3D8]/20 flex flex-col gap-1">
-          <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#4A4455] font-medium text-sm hover:bg-[#F9F1FF] transition-colors">
-            <div className="w-5 h-5 bg-[#4A4455] rounded-sm"></div>
-            Settings
-          </a>
-          <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#BA1A1A] font-medium text-sm hover:bg-red-50 transition-colors">
-            <div className="w-4 h-4 bg-[#BA1A1A] rounded-sm"></div>
-            Logout
-          </a>
+      <div className="pt-4 border-t border-[#CCC3D8]/20 flex flex-col gap-1">
+        <button type="button" onClick={() => onNavigate('/login')} className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#BA1A1A] hover:bg-[#FEE2E2] transition-all duration-200 active:scale-95">
+          <span className="material-symbols-outlined text-xl">logout</span>
+          <span className="text-xs tracking-[0.01em] font-medium">Logout</span>
+        </button>
+      </div>
+    </>
+  )
+}
+
+function Header() {
+  return (
+    <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-xl border-b border-[#CCC3D8]/30">
+      <div className="flex items-center justify-between h-16 px-4 md:px-10">
+        <h1 className="text-lg md:text-xl font-semibold text-[#630ED4]">Konfirmasi Pembayaran</h1>
+        <div className="flex items-center gap-3 md:gap-6">
+          <button type="button" className="relative p-1 text-[#4A4455] hover:text-[#630ED4] transition-colors">
+            <span className="material-symbols-outlined">notifications</span>
+            <span className="absolute top-0 right-0 w-2 h-2 rounded-full bg-[#BA1A1A]" />
+          </button>
+          <button type="button" className="p-1 text-[#4A4455] hover:text-[#630ED4] transition-colors">
+            <span className="material-symbols-outlined">help</span>
+          </button>
+          <div className="flex items-center gap-3 pl-3 md:pl-4 border-l border-[#CCC3D8]/30">
+            <div className="hidden sm:block text-right">
+              <p className="text-xs font-bold text-[#1D1A24] leading-tight">Alex Johnson</p>
+              <p className="text-[10px] text-[#4A4455]">Premium Member</p>
+            </div>
+            <div className="w-10 h-10 shrink-0 rounded-full ring-2 ring-[#7C3AED] overflow-hidden">
+              <img className="w-full h-full object-cover" src="https://placehold.co/40x40" alt="Alex Johnson" />
+            </div>
+          </div>
         </div>
-      </aside>
+      </div>
+    </header>
+  )
+}
 
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col h-full overflow-y-auto">
-        {/* Header */}
-        <header className="h-16 px-6 lg:px-10 bg-white/80 backdrop-blur-md border-b border-[#CCC3D8]/30 flex items-center justify-between sticky top-0 z-10 shrink-0">
-          <h2 className="text-xl font-semibold text-[#630ED4]">Konfirmasi Pembayaran</h2>
-          
-          <div className="flex items-center gap-4 sm:gap-6">
-            <div className="relative hidden sm:block">
-              <div className="w-4 h-5 bg-[#4A4455]"></div>
-              <div className="w-2 h-2 bg-[#BA1A1A] rounded-full absolute -top-1 -right-1"></div>
-            </div>
-            <div className="w-5 h-5 bg-[#4A4455] hidden sm:block"></div>
-            <div className="sm:pl-4 sm:border-l border-[#CCC3D8]/30 flex items-center gap-3">
-              <div className="flex flex-col items-end">
-                <span className="text-xs font-bold text-[#1D1A24]">Alex Johnson</span>
-                <span className="text-[10px] font-medium text-[#4A4455]">Premium Member</span>
-              </div>
-              <img src="https://placehold.co/40x40" alt="profile" className="w-10 h-10 rounded-full border-2 border-[#7C3AED]" />
-            </div>
-          </div>
-        </header>
+export default function PaymentConfirm() {
+  const navigate = useNavigate()
 
-        {/* Content Body */}
-        <div className="flex-1 w-full max-w-[1280px] mx-auto p-4 sm:p-6 lg:p-10 flex flex-col xl:flex-row gap-6 sm:gap-8">
-          
-          {/* Left Column (Payment Details) */}
-          <div className="flex-1 flex flex-col gap-6 sm:gap-8">
-            
-            {/* Merchant Card */}
-            <div className="bg-white p-5 sm:p-6 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#CCC3D8]/10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 relative">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#F9F1FF] rounded-2xl border border-[#CCC3D8]/20 flex items-center justify-center overflow-hidden shrink-0">
-                <img src="https://placehold.co/78x78" alt="merchant" className="w-full h-full object-cover" />
-              </div>
-              <div className="flex flex-col gap-1 flex-1">
-                <span className="text-[10px] font-bold text-[#630ED4] tracking-wider uppercase">Merchant Partner</span>
-                <h3 className="text-xl sm:text-2xl font-semibold text-[#1D1A24]">The Daily Grind Coffee</h3>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="w-3 h-3 bg-[#4A4455]"></div>
-                  <span className="text-xs sm:text-sm text-[#4A4455]">Merchant ID: <span className="font-mono font-bold">MCH-99283-ID</span></span>
-                </div>
-              </div>
-              <div className="absolute top-5 right-5 sm:static bg-[#F3EBFA] px-3 py-1.5 rounded-full">
-                <span className="text-[10px] sm:text-xs font-medium text-[#630ED4]">Verified Merchant</span>
-              </div>
-            </div>
+  return (
+    <div className="min-h-screen bg-[#FEF7FF] text-[#1D1A24]">
+      <div className="flex min-h-screen">
+        <aside className="hidden lg:flex flex-col w-64 shrink-0 h-screen sticky top-0 bg-white border-r border-[#CCC3D8]/20 p-4 gap-4">
+          <Sidebar items={navItems} onNavigate={navigate} />
+        </aside>
 
-            {/* Nominal Card */}
-            <div className="bg-white p-5 sm:p-6 md:p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#CCC3D8]/10 flex flex-col gap-6">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <h3 className="text-lg sm:text-xl font-semibold text-[#1D1A24]">Nominal Pembayaran</h3>
-                <div className="bg-[#F9F1FF] px-4 py-2 rounded-2xl flex items-center gap-2">
-                  <div className="w-4 h-4 bg-[#630ED4]"></div>
-                  <span className="text-xs font-medium text-[#4A4455]">Saldo: <span className="text-[#1D1A24]">Rp 1.250.000</span></span>
-                </div>
-              </div>
-              
-              <div className="relative mt-2">
-                <div className="bg-white py-5 sm:py-6 md:py-8 pl-12 sm:pl-16 pr-4 sm:pr-6 rounded-2xl border-2 border-[#CCC3D8]/20 flex items-center">
-                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1D1A24]">150.000</span>
-                </div>
-                <div className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2">
-                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#4A4455]/50">Rp</span>
-                </div>
-                <div className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 bg-[#630ED4]"></div>
-              </div>
-              
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-[#4A4455]">
-                <div className="w-3 h-3 bg-[#4A4455] shrink-0"></div>
-                <p>Pastikan nominal pembayaran sudah sesuai dengan tagihan merchant.</p>
-              </div>
-            </div>
+        <div className="flex-1 flex flex-col min-w-0">
+          <Header />
 
-            {/* Promos & Methods */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-              <div className="bg-white p-5 sm:p-6 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#CCC3D8]/10 flex items-center gap-4 cursor-pointer hover:border-[#630ED4]/30 transition-colors">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FFDCC6] rounded-xl flex items-center justify-center shrink-0">
-                  <div className="w-4 sm:w-5 h-4 sm:h-5 bg-[#7D3D00]"></div>
-                </div>
-                <div className="flex flex-col flex-1">
-                  <span className="text-xs font-bold text-[#1D1A24]">Promo Cashback</span>
-                  <span className="text-[10px] text-[#4A4455]">2 Voucher tersedia</span>
-                </div>
-                <div className="w-2 h-3 bg-[#4A4455]"></div>
-              </div>
-              
-              <div className="bg-white p-5 sm:p-6 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#CCC3D8]/10 flex items-center gap-4 cursor-pointer hover:border-[#630ED4]/30 transition-colors">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#EADDFF] rounded-xl flex items-center justify-center shrink-0">
-                  <div className="w-5 h-4 bg-[#630ED4]"></div>
-                </div>
-                <div className="flex flex-col flex-1">
-                  <span className="text-xs font-bold text-[#1D1A24]">Metode Bayar</span>
-                  <span className="text-[10px] text-[#4A4455]">IWallet Balance</span>
-                </div>
-                <div className="w-2 h-3 bg-[#4A4455]"></div>
-              </div>
-            </div>
+          <main className="flex-1 pb-24 lg:pb-10">
+            <div className="max-w-screen-xl mx-auto px-4 py-6 md:px-8 md:py-10">
+              <div className="grid lg:grid-cols-3 gap-6 items-start">
+                <div className="lg:col-span-2 flex flex-col gap-6">
+                  <section className="bg-white rounded-3xl p-5 md:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] ring-1 ring-[#CCC3D8]/10 flex items-center gap-4 md:gap-6">
+                    <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-2xl bg-[#F9F1FF] ring-1 ring-[#CCC3D8]/20 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-[#630ED4] text-3xl md:text-4xl">storefront</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#630ED4]">Merchant Partner</p>
+                      <h2 className="text-xl md:text-2xl font-semibold truncate">The Daily Grind Coffee</h2>
+                      <p className="text-sm text-[#4A4455] flex items-center gap-2 mt-0.5">
+                        <span className="material-symbols-outlined text-base">pin_drop</span>
+                        Merchant ID:
+                        <span className="font-mono font-bold text-[#4A4455]">MCH-99283-ID</span>
+                      </p>
+                    </div>
+                    <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F3EBFA] text-[#630ED4] text-xs font-medium shrink-0">
+                      <span className="material-symbols-outlined text-sm">verified</span>
+                      Verified Merchant
+                    </span>
+                  </section>
 
-          </div>
+                  <section className="bg-white rounded-3xl p-6 md:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] ring-1 ring-[#CCC3D8]/10">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <h3 className="text-lg md:text-xl font-semibold">Nominal Pembayaran</h3>
+                      <span className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#F9F1FF] text-xs font-medium text-[#4A4455] self-start sm:self-auto">
+                        <span className="material-symbols-outlined text-[#630ED4]">account_balance_wallet</span>
+                        Saldo:
+                        <span className="font-medium text-[#1D1A24]">Rp 1.250.000</span>
+                      </span>
+                    </div>
 
-          {/* Right Column (Summary) */}
-          <div className="w-full xl:w-80 flex flex-col gap-6 shrink-0">
-            <div className="bg-white p-6 md:p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#CCC3D8]/10 flex flex-col">
-              <h3 className="text-lg sm:text-xl font-semibold text-[#1D1A24] mb-6 sm:mb-8">Ringkasan<br className="hidden sm:block" /> Transaksi</h3>
-              
-              <div className="flex flex-col gap-5 sm:gap-6">
-                <div className="flex justify-between items-start">
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-[#4A4455]">Nominal Transaksi</span>
-                    <span className="text-[10px] text-[#4A4455] mt-1">Subtotal Tagihan</span>
+                    <div className="mt-6 flex items-baseline gap-2 px-4 md:px-6 py-8 rounded-2xl ring-2 ring-[#CCC3D8]/20">
+                      <span className="text-3xl md:text-4xl font-bold text-[#4A4455]/50">Rp</span>
+                      <span className="text-4xl md:text-5xl font-bold">150.000</span>
+                    </div>
+
+                    <p className="mt-5 flex items-center gap-2 text-sm text-[#4A4455]">
+                      <span className="material-symbols-outlined text-base">info</span>
+                      Pastikan nominal pembayaran sudah sesuai dengan tagihan merchant.
+                    </p>
+                  </section>
+
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <button type="button" className="bg-white rounded-3xl p-5 md:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] ring-1 ring-[#CCC3D8]/10 flex items-center gap-4 text-left hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.98]">
+                      <div className="w-12 h-12 shrink-0 rounded-xl bg-[#FFDCC6] flex items-center justify-center">
+                        <span className="material-symbols-outlined text-[#7D3D00]">local_offer</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-bold tracking-wide">Promo Cashback</p>
+                        <p className="text-[10px] text-[#4A4455]">2 Voucher tersedia</p>
+                      </div>
+                      <span className="material-symbols-outlined text-[#4A4455]">chevron_right</span>
+                    </button>
+
+                    <button type="button" className="bg-white rounded-3xl p-5 md:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] ring-1 ring-[#CCC3D8]/10 flex items-center gap-4 text-left hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.98]">
+                      <div className="w-12 h-12 shrink-0 rounded-xl bg-[#EADDFF] flex items-center justify-center">
+                        <span className="material-symbols-outlined text-[#630ED4]">account_balance_wallet</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-bold tracking-wide">Metode Bayar</p>
+                        <p className="text-[10px] text-[#4A4455]">IWallet Balance</p>
+                      </div>
+                      <span className="material-symbols-outlined text-[#4A4455]">chevron_right</span>
+                    </button>
                   </div>
-                  <span className="text-xs font-bold text-[#1D1A24]">Rp 150.000</span>
                 </div>
-                
-                <div className="flex justify-between items-start">
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-[#4A4455]">Biaya Layanan</span>
-                    <span className="text-[10px] text-[#4A4455] mt-1">IWallet processing fee</span>
-                  </div>
-                  <span className="text-xs font-bold text-[#1D1A24]">Rp 1.500</span>
-                </div>
-                
-                <div className="flex justify-between items-start">
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-[#16A34A]">Diskon Promo</span>
-                    <span className="text-[10px] text-[#4A4455] mt-1">Cashback Promo Kopi</span>
-                  </div>
-                  <span className="text-xs font-bold text-[#16A34A]">-Rp 5.000</span>
-                </div>
-                
-                <div className="mt-2 pt-5 sm:pt-6 border-t border-[#CCC3D8]/50 flex justify-between items-end">
-                  <div className="flex flex-col">
-                    <span className="text-sm sm:text-base font-semibold text-[#1D1A24]">Total Bayar</span>
-                    <span className="text-[10px] text-[#4A4455] mt-1">Sudah termasuk pajak & biaya</span>
-                  </div>
-                  <span className="text-sm sm:text-base font-semibold text-[#630ED4]">Rp 146.500</span>
-                </div>
-              </div>
-              
-              <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:gap-4">
-                <button className="w-full py-3.5 sm:py-4 bg-gradient-to-br from-[#7C3AED] to-[#630ED4] rounded-2xl text-white text-base sm:text-lg font-semibold shadow-lg shadow-[#630ED4]/20 hover:opacity-90 transition-opacity flex items-center justify-center gap-3">
-                  <div className="w-4 h-5 bg-white mask-icon rounded-sm"></div>
-                  Bayar Sekarang
-                </button>
-                <button className="w-full py-3 rounded-2xl text-xs font-medium text-[#4A4455] hover:bg-gray-50 transition-colors">
-                  Batalkan Transaksi
-                </button>
+
+                <aside className="lg:col-span-1 lg:sticky lg:top-24">
+                  <section className="bg-white rounded-3xl p-6 md:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] ring-1 ring-[#CCC3D8]/10">
+                    <h3 className="text-xl font-semibold mb-6">
+                      Ringkasan
+                      <br />
+                      Transaksi
+                    </h3>
+
+                    <div className="flex flex-col gap-6">
+                      <div className="flex justify-between items-start gap-3">
+                        <div>
+                          <p className="text-xs font-medium text-[#4A4455]">Nominal Transaksi</p>
+                          <p className="text-[10px] text-[#4A4455]">Subtotal Tagihan</p>
+                        </div>
+                        <span className="text-xs font-bold shrink-0">Rp 150.000</span>
+                      </div>
+
+                      <div className="flex justify-between items-start gap-3">
+                        <div>
+                          <p className="text-xs font-medium text-[#4A4455]">Biaya Layanan</p>
+                          <p className="text-[10px] text-[#4A4455]">IWallet processing fee</p>
+                        </div>
+                        <span className="text-xs font-bold shrink-0">Rp 1.500</span>
+                      </div>
+
+                      <div className="flex justify-between items-start gap-3">
+                        <div>
+                          <p className="text-xs font-medium text-[#16A34A]">Diskon Promo</p>
+                          <p className="text-[10px] text-[#4A4455]">Cashback Promo Kopi</p>
+                        </div>
+                        <span className="text-xs font-bold text-[#16A34A] shrink-0">-Rp 5.000</span>
+                      </div>
+
+                      <div className="pt-6 border-t border-[#CCC3D8]/50 flex justify-between items-end gap-3">
+                        <div>
+                          <p className="text-base font-semibold">Total Bayar</p>
+                          <p className="text-[10px] text-[#4A4455]">Sudah termasuk pajak &amp; biaya</p>
+                        </div>
+                        <span className="text-lg font-semibold text-[#630ED4] shrink-0">Rp 146.500</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-8 flex flex-col gap-4">
+                      <button
+                        type="button"
+                        onClick={() => navigate('/payment/pin')}
+                        className="w-full py-5 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#630ED4] text-white text-xl font-semibold flex items-center justify-center gap-3 shadow-[0_10px_15px_-3px_rgba(99,14,212,0.25)] hover:brightness-110 active:scale-[0.98] transition-all duration-200"
+                      >
+                        <span className="material-symbols-outlined text-2xl">lock</span>
+                        Bayar Sekarang
+                      </button>
+                      <button type="button" onClick={() => navigate('/payment')} className="w-full py-4 rounded-2xl text-[#4A4455] text-xs font-medium hover:bg-[#F9F1FF] transition-colors">
+                        Batalkan Transaksi
+                      </button>
+                    </div>
+
+                    <div className="mt-6 p-4 rounded-2xl bg-[#F9F1FF] flex items-center gap-4">
+                      <div className="w-10 h-10 shrink-0 rounded-full bg-white shadow-sm flex items-center justify-center">
+                        <span className="material-symbols-outlined text-[#630ED4]">verified_user</span>
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-bold text-[#1D1A24]">Pembayaran Aman</p>
+                        <p className="text-[10px] text-[#4A4455]">Enkripsi 256-bit AES tingkat bank.</p>
+                      </div>
+                    </div>
+                  </section>
+                </aside>
               </div>
             </div>
-            
-            {/* Security Badge */}
-            <div className="bg-[#F9F1FF] p-4 rounded-2xl flex items-center gap-4">
-              <div className="w-10 h-10 bg-white rounded-full shadow-sm flex items-center justify-center shrink-0">
-                <div className="w-4 h-5 bg-[#630ED4]"></div>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-[#1D1A24]">Pembayaran Aman</span>
-                <span className="text-[10px] text-[#4A4455] mt-0.5 leading-snug">Enkripsi 256-bit AES tingkat bank.</span>
-              </div>
-            </div>
-          </div>
-          
+          </main>
+
+          <nav className="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-xl border-t border-[#CCC3D8]/30 flex justify-around py-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))]">
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                type="button"
+                onClick={() => navigate(item.path)}
+                className={`flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-xl ${
+                  item.active ? 'text-[#630ED4]' : 'text-[#4A4455]'
+                }`}
+              >
+                <span className="material-symbols-outlined text-2xl">{item.icon}</span>
+                <span className="text-[10px] font-medium">{item.label}</span>
+              </button>
+            ))}
+          </nav>
         </div>
-      </main>
+      </div>
     </div>
-  );
+  )
 }

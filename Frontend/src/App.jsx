@@ -5,9 +5,9 @@ import Dashboard from './pages/Dashboard/Dasboard'
 import Payment from './pages/Payment/Payment'
 import PaymentPin from './pages/Payment/PIN'
 import PaymentConfirm from './pages/Payment/Payment_Confirm'
-//import TopUp from './pages/Topup/topup'
-//import History from './pages/Transaction/History'
-//import Profile from './pages/Profile/Profile'
+import TopUp from './pages/Topup/topup'
+import History from './pages/Transaction/History'
+import Profile from './pages/Profile/Profile'
 
 function App() {
   return (
@@ -19,9 +19,9 @@ function App() {
       <Route path="/payment" element={<Payment />} />
       <Route path="/payment/pin" element={<PaymentPin />} />
       <Route path="/payment/confirm" element={<PaymentConfirm />} />
-      {/* <Route path="/topup" element={<TopUp />} />
+      <Route path="/topup" element={<TopUp />} />
       <Route path="/transaction" element={<History />} />
-      <Route path="/profile" element={<Profile />} /> */}
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   )
 }

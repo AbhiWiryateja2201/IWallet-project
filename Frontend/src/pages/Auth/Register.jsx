@@ -78,13 +78,13 @@ export default function Register() {
   return (
     <main className="flex min-h-screen overflow-hidden bg-background selection:bg-primary-fixed selection:text-on-primary-fixed font-['Inter',sans-serif]">
       {/* Left Column - Branding */}
-      <section className="hidden lg:flex lg:w-1/2 primary-gradient relative flex-col justify-between p-[24px] overflow-hidden">
+      <section className="hidden lg:flex lg:w-1/2 primary-gradient relative flex-col justify-between p-6 overflow-hidden">
         {/* Decorative Background */}
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-white/10 rounded-full -mr-64 -mt-64 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-container/20 rounded-full -ml-32 -mb-32 blur-3xl" />
+        <div className="absolute top-0 right-0 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-white/10 rounded-full -mr-64 -mt-64 blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[60vw] h-[60vw] max-w-[600px] max-h-[600px] bg-primary-container/20 rounded-full -ml-32 -mb-32 blur-3xl" />
 
         {/* Nav */}
-        <nav className="relative z-10 flex items-center gap-[12px]">
+        <nav className="relative z-10 flex items-center gap-3">
           <img
             src="/Logo_App.png"
             alt="IWallet Logo"
@@ -103,8 +103,8 @@ export default function Register() {
             finansial modern untuk gaya hidup digitalmu.
           </p>
 
-          <div className="space-y-[16px]">
-            <div className="flex items-center gap-[16px] glass-panel p-4 rounded-xl">
+          <div className="space-y-4">
+            <div className="flex items-center gap-4 glass-panel p-4 rounded-xl">
               <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center text-white">
                 <img src={VerifiedUserIcon} alt="" className="w-5 h-5" />
               </div>
@@ -112,7 +112,7 @@ export default function Register() {
                 Keamanan Tingkat Bank
               </p>
             </div>
-            <div className="flex items-center gap-[16px] glass-panel p-4 rounded-xl">
+            <div className="flex items-center gap-4 glass-panel p-4 rounded-xl">
               <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center text-white">
                 <img src={BoltIcon} alt="" className="w-5 h-5" />
               </div>
@@ -120,7 +120,7 @@ export default function Register() {
                 Transfer Real-time
               </p>
             </div>
-            <div className="flex items-center gap-[16px] glass-panel p-4 rounded-xl">
+            <div className="flex items-center gap-4 glass-panel p-4 rounded-xl">
               <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center text-white">
                 <img src={RedeemIcon} alt="" className="w-5 h-5" />
               </div>
@@ -132,16 +132,16 @@ export default function Register() {
         </div>
 
         {/* Footer */}
-        <div className="relative z-10 flex items-center gap-[12px] text-white/60 text-[12px] leading-[16px]">
+        <div className="relative z-10 flex items-center gap-3 text-white/60 text-[12px] leading-[16px]">
           <span>© 2024 IWallet Inc. All rights reserved.</span>
         </div>
       </section>
 
       {/* Right Column - Form */}
-      <section className="w-full lg:w-1/2 flex items-center justify-center p-[16px] bg-surface">
+      <section className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-6 bg-surface">
         <div className="max-w-md w-full">
           {/* Mobile Branding */}
-          <div className="flex lg:hidden items-center gap-[12px] mb-10">
+          <div className="flex lg:hidden items-center gap-3 mb-10">
             <img
               alt="IWallet Logo"
               className="w-8 h-8 object-contain"
@@ -394,7 +394,7 @@ export default function Register() {
           </form>
 
           {/* Footer Links (Mobile) */}
-          <div className="lg:hidden flex justify-center gap-[12px] mt-12 opacity-60 text-[12px] leading-[16px]">
+          <div className="lg:hidden flex justify-center gap-3 mt-12 opacity-60 text-[12px] leading-[16px]">
             <a className="hover:text-primary transition-colors" href="#">
               Privacy Policy
             </a>
