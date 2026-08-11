@@ -18,8 +18,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Service //same as Entity, this one declares that this file handle business logic
-@RequiredArgsConstructor
+@Service // Memberi tahu Spring Boot bahwa kelas ini adalah Service Layer yang menangani logika bisnis
+@RequiredArgsConstructor // Lombok: Membuat constructor otomatis untuk injeksi dependensi (Dependency Injection) pada variabel final
 public class AuthService {
 
     /* ATRIBUT */  
@@ -29,7 +29,7 @@ public class AuthService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     /******************* METHOD *******************/
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class) // Memastikan semua operasi database sukses bersama atau gagal bersama (Rollback jika error)
     public UserResponseDTO register(UserRegisterRequestDTO dto) {
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new RuntimeException("Email sudah terdaftar!");
@@ -85,3 +85,25 @@ public class AuthService {
         return dto;
     }
 }
+
+/*
+ ┃ @Service:
+ ┃ Anotasi ini memberitahu Spring Boot bahwa kelas AuthService adalah bagian dari
+ ┃ Service Layer. Tugas utamanya adalah memproses aturan bisnis aplikasi, bukan
+ ┃ berurusan langsung dengan query database (tugas Repository) atau menerima
+ ┃ request dari internet (tugas Controller).
+ ┃
+ ┃ @Transactional(rollbackFor = Exception.class):
+ ┃ Fitur sangat penting dari Spring untuk menjaga integritas data (ACID). Pada
+ ┃ fungsi register(), kita menyimpan data User dan Wallet ke database. Bayangkan
+ ┃ jika User berhasil disimpan, tetapi tiba-tiba server mati sebelum Wallet
+ ┃ disimpan. Database akan berantakan! Dengan @Transactional, Spring akan
+ ┃ membungkus kedua proses tersebut dalam 1 transaksi. Jika salah satu gagal
+ ┃ (Exception), semuanya akan dibatalkan (rollback).
+ ┃
+ ┃ BCryptPasswordEncoder:
+ ┃ Password atau PIN pengguna pantang disimpan secara mentah (plain text) di
+ ┃ database. BCrypt mengubah (hash) password menjadi string acak yang tidak
+ ┃ bisa dikembalikan ke asalnya (one-way hashing) sehingga aman jika database
+ ┃ bocor.
+ */

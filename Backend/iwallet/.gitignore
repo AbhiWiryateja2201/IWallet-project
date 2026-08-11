@@ -44,7 +44,6 @@ application-secret.properties
 application-secrets.properties
 application-dev.properties
 
-
 ### OS generated files ###
 .DS_Store
 .DS_Store?

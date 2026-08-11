@@ -14,8 +14,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Collections;
 
-@Component
-@RequiredArgsConstructor
+@Component // Mendaftarkan kelas ini sebagai komponen Spring agar bisa di-inject (Dependency Injection)
+@RequiredArgsConstructor // Lombok: Membuat constructor otomatis untuk variabel final (jwtUtil)
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
@@ -56,3 +56,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
+
+/*
+ ┃ @Component:
+ ┃ Menjadikan filter ini sebagai objek yang dikelola oleh Spring, sehingga kita
+ ┃ bisa meng-inject kelas lain ke dalamnya (seperti JwtUtil).
+ ┃
+ ┃ OncePerRequestFilter:
+ ┃ Filter (satpam) ini memastikan bahwa pengecekan token JWT hanya dilakukan
+ ┃ satu kali saja untuk setiap request yang masuk ke server.
+ ┃
+ ┃ Cara Kerja:
+ ┃ Filter ini akan mengambil header "Authorization" dari request. Jika formatnya
+ ┃ benar ("Bearer <token>"), ia akan memvalidasi token tersebut menggunakan JwtUtil.
+ ┃ Jika token valid, filter akan mengekstrak "publicId" dan membuat semacam "KTP virtual"
+ ┃ (UsernamePasswordAuthenticationToken) lalu menyimpannya di SecurityContextHolder
+ ┃ agar dikenali sebagai pengguna yang sah oleh sistem.
+ */

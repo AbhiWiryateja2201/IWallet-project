@@ -12,36 +12,47 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@RestController //tells springboot that this class is API
-@RequestMapping("/api/auth") //declare url base for this specific API, so all route begins with http://localhost:8080/api/auth
-//this annotation below prevents CORS policy, so react can access the API (by default CORS blocks differnet address requests.)
-@CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173"})
-@RequiredArgsConstructor
+import jakarta.validation.Valid;
+
+@RestController // Menandakan bahwa class ini adalah API Controller yang mereturn JSON
+@RequestMapping("/api/auth") // Menentukan URL dasar untuk semua route di dalam class ini
+@CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173"}) // Mengizinkan akses dari frontend (CORS)
+@RequiredArgsConstructor // Membuat constructor otomatis untuk dependency injection (Lombok)
 
 public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/register") //menerima request POST di URL /api/auth/register
-    public ResponseEntity<?> register(@RequestBody UserRegisterRequestDTO requestDTO) { //annotation on this line automatically translates received JSON into user object.
-        try {
-            // Gunakan DTO, bukan Entity User
-            UserResponseDTO registeredUser = authService.register(requestDTO);
-            return ResponseEntity.ok(registeredUser);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @PostMapping("/register") // Menerima request HTTP POST di path /register
+    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterRequestDTO requestDTO) { // Anotasi otomatis mengubah JSON request menjadi object DTO
+        // Gunakan DTO, bukan Entity User
+        UserResponseDTO registeredUser = authService.register(requestDTO);
+        return ResponseEntity.ok(registeredUser);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login") // Menerima request HTTP POST di path /login untuk autentikasi
     public ResponseEntity<?> login(@RequestBody Map<String, String> request) {
-        try {
-            String email = request.get("email");
-            String password = request.get("password");
-            LoginResponseDTO loginResponse = authService.login(email, password);
-            return ResponseEntity.ok(loginResponse);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        String email = request.get("email");
+        String password = request.get("password");
+        LoginResponseDTO loginResponse = authService.login(email, password);
+        return ResponseEntity.ok(loginResponse);
     }
 }
+
+/*
+ ┃ AuthController
+ ┃
+ ┃ Class ini bertanggung jawab untuk menangani proses autentikasi pengguna,
+ ┃ yaitu registrasi akun baru dan login ke dalam sistem.
+ ┃
+ ┃ Cara Kerja:
+ ┃ 1. Register:
+ ┃    - Menerima request berupa data pendaftaran pengguna.
+ ┃    - Meneruskan data tersebut ke AuthService untuk divalidasi dan disimpan.
+ ┃    - Mengembalikan data pengguna yang berhasil didaftarkan tanpa menyertakan password.
+ ┃ 2. Login:
+ ┃    - Menerima request berisi email dan password.
+ ┃    - Meneruskan kredensial ke AuthService untuk memverifikasi kebenarannya.
+ ┃    - Jika sukses, akan menghasilkan dan mengembalikan token JWT yang akan 
+ ┃      digunakan pengguna untuk mengakses API lain yang terproteksi.
+ */
