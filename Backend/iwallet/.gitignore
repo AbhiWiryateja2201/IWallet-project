@@ -56,3 +56,9 @@ application-dev.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+### Custom Test Scripts (Chaos & Race Condition) ###
+test_*.sh
+test_*.ps1
+test_*.bat
+*.log
