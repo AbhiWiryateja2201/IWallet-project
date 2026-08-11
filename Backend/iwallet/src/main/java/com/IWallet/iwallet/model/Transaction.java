@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data // (Lombok) Otomatis membuatkan getter, setter, toString, dll.
-@Entity // (JPA) Class ini mewakili sebuah tabel di dalam database.
-@Table(name = "transactions") // (JPA) Menentukan nama tabel, yaitu "transactions".
+@Data
+@Entity
+@Table(name = "transactions")
 public class Transaction {
 
     @Id
@@ -21,11 +21,11 @@ public class Transaction {
     @Column(name = "public_id", unique = true, nullable = false, updatable = false)
     private String publicId;
 
-    @ManyToOne // (JPA) Relasi Banyak-ke-Satu. Banyak transaksi bisa terjadi pada satu dompet (Wallet).
+    @ManyToOne 
     @JoinColumn(name = "wallet_id", referencedColumnName = "wallet_id", nullable = false)
     private Wallet wallet;
 
-    @ManyToOne // (JPA) Relasi Banyak-ke-Satu. Banyak transaksi bisa melibatkan satu Merchant.
+    @ManyToOne 
     @JoinColumn(name = "merchant_id", referencedColumnName = "merchant_id")
     private Merchant merchant;
 
@@ -50,23 +50,3 @@ public class Transaction {
         this.publicId = UUID.randomUUID().toString();
     }
 }
-
-/*
- ┃ File: Transaction.java
- ┃ Layer: Model / Entity
- ┃
- ┃ Penjelasan:
- ┃ File ini mewakili tabel "transactions" yang berfungsi sebagai buku besar (ledger)
- ┃ untuk mencatat setiap mutasi saldo, baik itu uang masuk (Top-up) maupun uang 
- ┃ keluar (Transfer, Pembayaran).
- ┃
- ┃ Poin Penting:
- ┃ 1. Relasi Many-to-One (@ManyToOne): Satu dompet (Wallet) bisa memiliki banyak
- ┃    riwayat transaksi. Oleh karena itu, kita merelasikan transaksi ini kembali ke 
- ┃    entitas Wallet pemiliknya.
- ┃ 2. Idempotency Key: Ada properti unik bernama 'idempotencyKey'. Ini adalah 
- ┃    mekanisme keamanan krusial untuk mencegah "Double Spend" atau transaksi ganda.
- ┃    Jika frontend secara tidak sengaja mengirim request yang sama 2 kali (karena 
- ┃    jaringan ngelag/tombol diklik 2x), transaksi kedua akan ditolak karena 
- ┃    idempotencyKey-nya sudah tercatat di database.
- */

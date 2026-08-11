@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service // Memberi tahu Spring Boot bahwa kelas ini adalah Service Layer
-@RequiredArgsConstructor // Lombok: Injeksi dependensi otomatis
+@Service 
+@RequiredArgsConstructor
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
@@ -29,9 +29,3 @@ public class TransactionService {
         ).collect(Collectors.toList());
     }
 }
-
-/*
- ┃ @Service:
- ┃ Penanda bahwa kelas TransactionService ini memegang tanggung jawab bisnis
- ┃ khusus untuk mengelola atau mengambil data riwayat transaksi pengguna.
- */

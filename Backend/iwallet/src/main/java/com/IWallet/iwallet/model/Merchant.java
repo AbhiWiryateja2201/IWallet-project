@@ -8,13 +8,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data // (Lombok) Otomatis meng-generate getter, setter, dll.
-@Entity // (JPA) Menandai class ini sebagai entitas tabel database.
-@Table(name = "merchants") // (JPA) Menentukan nama tabel di database, yaitu "merchants".
+@Data 
+@Entity
+@Table(name = "merchants") 
 public class Merchant {
 
-    @Id // (JPA) Menandai kolom ini sebagai Primary Key
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // (JPA) Menjadikan Primary Key sebagai Auto Increment
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name = "merchant_id")
     private Long merchantId;
 
@@ -40,19 +40,3 @@ public class Merchant {
         this.publicId = UUID.randomUUID().toString();
     }
 }
-
-/*
- ┃ File: Merchant.java
- ┃ Layer: Model / Entity
- ┃
- ┃ Penjelasan:
- ┃ File ini adalah representasi dari entitas "Merchant" (pedagang/toko) di database.
- ┃ Jika aplikasi ini mendukung pembayaran menggunakan QR Code ke sebuah toko,
- ┃ data toko tersebut akan disimpan menggunakan struktur class ini.
- ┃
- ┃ Poin Penting:
- ┃ Sama seperti User dan Wallet, entitas Merchant juga memiliki 'publicId' berupa 
- ┃ UUID yang di-generate otomatis saat dibuat (@PrePersist). Ini bertujuan agar
- ┃ identitas asli merchant di database tidak diketahui publik. QR Code pada merchant
- ┃ juga dapat disimpan dalam format teks panjang (TEXT) sesuai dengan definisi kolomnya.
- */

@@ -4,9 +4,9 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-@Builder // 
+@Builder
 public class TransactionResponseDTO {
-    private String transactionId; //public_id dari tabel transactions
+    private String transactionId;
     private BigDecimal currentBalance;
     private String status;
     private String message;

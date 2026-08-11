@@ -9,13 +9,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data // (Lombok) Membuat getter, setter, dll otomatis
-@Entity // (JPA) Menandai class ini sebagai entitas atau tabel database
-@Table(name = "wallets") // (JPA) Menentukan nama tabel di database secara spesifik, yaitu "wallets"
+@Data
+@Entity 
+@Table(name = "wallets") 
 public class Wallet {
 
-    @Id // (JPA) Menandakan bahwa variabel di bawahnya adalah Primary Key
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // (JPA) Menjadikan Primary Key sebagai Auto Increment
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wallet_id")
     private Long walletId;
 
@@ -38,8 +38,8 @@ public class Wallet {
     @OneToOne: relasi "Satu-ke-Satu". Satu entitas Wallet hanya dimiliki oleh satu entitas User
     */
 
-    @OneToOne // (JPA) Mendefinisikan relasi Satu-ke-Satu. Satu dompet hanya milik satu pengguna.
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false) // (JPA) Mengatur kolom yang menjadi Foreign Key.
+    @OneToOne 
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User user; //call whole user object instead of
     //  a singular ID element.
 
@@ -57,22 +57,3 @@ public class Wallet {
     }
 
 }
-
-/*
- ┃ File: Wallet.java
- ┃ Layer: Model / Entity
- ┃
- ┃ Penjelasan:
- ┃ File ini merepresentasikan tabel "wallets" (dompet digital) di dalam database.
- ┃ Setiap kali seorang User berhasil mendaftar, sistem akan membuatkan satu buah
- ┃ dompet untuknya menggunakan struktur dari class ini.
- ┃
- ┃ Poin Penting:
- ┃ 1. Relasi One-to-One: Anotasi @OneToOne dan @JoinColumn di atas properti 'user'
- ┃    menunjukkan bahwa sebuah dompet (Wallet) memiliki hubungan kepemilikan 
- ┃    mutlak dengan seorang Pengguna (User). Kolom "user_id" akan menjadi 
- ┃    Foreign Key (kunci tamu) yang merujuk ke tabel users.
- ┃ 2. Tipe Data Uang: Saldo (balance) menggunakan tipe data BigDecimal, bukan 
- ┃    Double atau Float. Ini adalah standar baku dalam aplikasi finansial untuk 
- ┃    menghindari kesalahan pembulatan angka desimal (precision loss).
- */

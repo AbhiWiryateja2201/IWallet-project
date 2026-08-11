@@ -11,18 +11,3 @@ public class IwalletApplication {
 	}
 
 }
-
-/*
- ┃ IwalletApplication
- ┃
- ┃ Ini adalah class utama (entry point) dari seluruh aplikasi backend Spring Boot.
- ┃
- ┃ Cara Kerja:
- ┃ - Anotasi `@SpringBootApplication` bertindak sebagai komandan yang menyuruh Spring:
- ┃   "Tolong pindai (scan) semua folder di bawah package ini untuk mencari 
- ┃    Controller, Service, Repository, dan konfigurasi lainnya, lalu rakit 
- ┃    mereka semua secara otomatis."
- ┃ - Method `main` adalah titik awal eksekusi program ketika aplikasi dijalankan.
- ┃   `SpringApplication.run()` akan menghidupkan server bawaan (biasanya Tomcat) 
- ┃   dan mulai mendengarkan request masuk.
- */
