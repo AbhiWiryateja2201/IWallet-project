@@ -44,9 +44,6 @@ application-secret.properties
 application-secrets.properties
 application-dev.properties
 
-### API Testing (REST Client / Thunder Client) ###
-*.http
-*.rest
 
 ### OS generated files ###
 .DS_Store

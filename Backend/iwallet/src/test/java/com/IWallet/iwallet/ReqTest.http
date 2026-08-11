@@ -1,0 +1,94 @@
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "indivarahebat2@co",
+    "password": "indivarahebat2"
+}
+
+###
+POST http://localhost:8080/api/topup
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzZjUxOTFmZS0wZmEzLTQ3ODctYTc3ZC1iZDIyMGM1ZmEzMDAiLCJpYXQiOjE3ODYzOTIyNTcsImV4cCI6MTc4NjM5MzE1N30.UPg4V6IJ9spe4ZlFaSJ1B1YMTV1OKpPVNovY4pNoMXw
+Idempotency-Key: 3f5191fe-0fa3-4787-a77d-bd220c5fa300
+Content-Type: application/json
+
+{
+    "amount": 10000.00
+}
+
+$token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1ZjAyNDExZS05YjBlLTRlMjYtYWVjOS1iMTgxNjYyODFhYWIiLCJpYXQiOjE3ODYzODk1NjEsImV4cCI6MTc4NjM5MDQ2MX0.UiUZ3ySzj3HRTij0Vx1ClXAGs27UJQa_Hg-omouG6yQ"
+$body = '{"amount": 10000.00}'
+$jobs = @()
+
+Write-Host "Mulai menembak API 10 kali secara paralel..."
+for ($i = 1; $i -le 10; $i++) {
+    $key = [guid]::NewGuid().ToString()
+    $jobs += Start-Job -ScriptBlock {
+        param($t, $b, $k)
+        Invoke-RestMethod -Uri "http://localhost:8080/api/topup" -Method Post -
+Headers @{
+            "Authorization" = "Bearer $t"
+            "Idempotency-Key" = $k
+            "Content-Type" = "application/json"
+        } -Body $b
+    } -ArgumentList $token, $body, $key
+}
+
+Wait-Job $jobs | Out-Null
+Receive-Job $jobs | Select-Object status, currentBalance, 
+
+
+### Isi Saldo (Top-Up)
+POST http://localhost:8080/api/topup
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzZjUxOTFmZS0wZmEzLTQ3ODctYTc3ZC1iZDIyMGM1ZmEzMDAiLCJpYXQiOjE3ODYzOTIyNTcsImV4cCI6MTc4NjM5MzE1N30.UPg4V6IJ9spe4ZlFaSJ1B1YMTV1OKpPVNovY4pNoMXw
+Idempotency-Key: topup-uuid-12346
+Content-Type: application/json
+
+{
+    "amount": 1000000.00
+}
+### Cek Saldo
+GET http://localhost:8080/api/wallet/balance
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzZjUxOTFmZS0wZmEzLTQ3ODctYTc3ZC1iZDIyMGM1ZmEzMDAiLCJpYXQiOjE3ODYzOTIyNTcsImV4cCI6MTc4NjM5MzE1N30.UPg4V6IJ9spe4ZlFaSJ1B1YMTV1OKpPVNovY4pNoMXw
+
+
+### Test 1: Payment Happy Path
+POST http://localhost:8080/api/payment/pay
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzZjUxOTFmZS0wZmEzLTQ3ODctYTc3ZC1iZDIyMGM1ZmEzMDAiLCJpYXQiOjE3ODYzOTIyNTcsImV4cCI6MTc4NjM5MzE1N30.UPg4V6IJ9spe4ZlFaSJ1B1YMTV1OKpPVNovY4pNoMXw
+Idempotency-Key: uuid-test-001
+Content-Type: application/json
+
+{
+    "merchantPublicId": "86b2249e-94f5-11f1-9084-005056c00001",
+    "amount": 10000.00,
+    "pin": "123456"
+}
+
+
+### Test 2: The Replay Attack
+POST http://localhost:8080/api/payment/pay
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzZjUxOTFmZS0wZmEzLTQ3ODctYTc3ZC1iZDIyMGM1ZmEzMDAiLCJpYXQiOjE3ODYzOTIyNTcsImV4cCI6MTc4NjM5MzE1N30.UPg4V6IJ9spe4ZlFaSJ1B1YMTV1OKpPVNovY4pNoMXw
+Idempotency-Key: uuid-test-001
+Content-Type: application/json
+
+{
+    "merchantPublicId": "86b2249e-94f5-11f1-9084-005056c00001",
+    "amount": 10000.00,
+    "pin": "123456"
+}
+
+### Test 3: Parameter Tampering
+POST http://localhost:8080/api/payment/pay
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzZjUxOTFmZS0wZmEzLTQ3ODctYTc3ZC1iZDIyMGM1ZmEzMDAiLCJpYXQiOjE3ODYzOTIyNTcsImV4cCI6MTc4NjM5MzE1N30.UPg4V6IJ9spe4ZlFaSJ1B1YMTV1OKpPVNovY4pNoMXw
+Idempotency-Key: uuid-test-002
+Content-Type: application/json
+
+{
+    "merchantPublicId": "86b2249e-94f5-11f1-9084-005056c00001",
+    "amount": 10000.00,
+    "pin": "113456"
+}
+
+### Lihat Riwayat Transaksi
+GET http://localhost:8080/api/transactions/history
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzZjUxOTFmZS0wZmEzLTQ3ODctYTc3ZC1iZDIyMGM1ZmEzMDAiLCJpYXQiOjE3ODYzOTM2NzMsImV4cCI6MTc4NjM5NDU3M30.mBbVuP5CtZMTVnLEbCcZ3SEChAFXsOqPHmJi4izcV-Q

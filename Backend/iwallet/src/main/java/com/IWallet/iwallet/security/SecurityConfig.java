@@ -51,7 +51,6 @@ public class SecurityConfig {
 
     @Bean
     public org.springframework.security.core.userdetails.UserDetailsService userDetailsService() {
-        // Return an empty in-memory user manager to disable Spring Boot's auto-generated password
         return new org.springframework.security.provisioning.InMemoryUserDetailsManager();
     }
 }
