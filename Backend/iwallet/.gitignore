@@ -44,10 +44,6 @@ application-secret.properties
 application-secrets.properties
 application-dev.properties
 
-### API Testing (REST Client / Thunder Client) ###
-*.http
-*.rest
-
 ### OS generated files ###
 .DS_Store
 .DS_Store?
@@ -56,9 +52,3 @@ application-dev.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
-
-### Custom Test Scripts (Chaos & Race Condition) ###
-test_*.sh
-test_*.ps1
-test_*.bat
-*.log
