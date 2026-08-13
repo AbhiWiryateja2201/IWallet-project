@@ -23,7 +23,7 @@ public class DashboardController {
         String userPublicId = principal.getName();
         
         Wallet wallet = walletRepository.findByUser_PublicId(userPublicId)
-                .orElseThrow(() -> new RuntimeException("Dompet tidak ditemukan!"));
+                .orElseThrow(() -> new RuntimeException("Dompet tidak ditemukan."));
         
         Map<String, Object> response = new HashMap<>();
         response.put("balance", wallet.getBalance());

@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
         String errorMessage = ex.getBindingResult().getFieldErrors().stream()
                 .map(error -> error.getDefaultMessage())
                 .findFirst()
-                .orElse("Validasi gagal");
+                .orElse("Validasi gagal!");
         ErrorResponseDTO errorResponse = new ErrorResponseDTO("error", errorMessage);
         return ResponseEntity.badRequest().body(errorResponse);
     }

@@ -20,10 +20,9 @@ public class TopUpController {
     @PostMapping
     public ResponseEntity<?> topUp(
             @RequestBody TopUpRequestDTO request,
-            @RequestHeader("Idempotency-Key") String idempotencyKey, //Memaksa frontend mengirim header ini
-            Principal principal //principal: interface representasi identitas pengguna yang sedang login, otomatis keisi di jwt
+            @RequestHeader("Idempotency-Key") String idempotencyKey,
+            Principal principal
     ) {
-        // principal.getName() diisi "sub" dari JWT: publicId user
         String userPublicId = principal.getName(); 
         
         TransactionResponseDTO response = topUpService.executeTopUp(userPublicId, request, idempotencyKey);

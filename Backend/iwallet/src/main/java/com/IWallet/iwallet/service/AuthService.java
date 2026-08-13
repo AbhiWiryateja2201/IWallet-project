@@ -27,8 +27,8 @@ public class AuthService {
     private final WalletRepository walletRepository;
     private final JwtUtil jwtUtil;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    /******************* METHOD *******************/
 
+    /******************* METHOD *******************/
     @Transactional(rollbackFor = Exception.class)
     public UserResponseDTO register(UserRegisterRequestDTO dto) {
         if (userRepository.existsByEmail(dto.getEmail())) {

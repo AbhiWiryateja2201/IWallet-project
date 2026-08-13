@@ -40,8 +40,7 @@ public class Wallet {
 
     @OneToOne 
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private User user; //call whole user object instead of
-    //  a singular ID element.
+    private User user; //call whole user object instead of a singular ID element.
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
