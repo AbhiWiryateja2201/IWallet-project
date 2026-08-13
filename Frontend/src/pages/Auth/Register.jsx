@@ -364,7 +364,7 @@ export default function Register() {
                     : "bg-primary/10 text-primary"
                 }`}
               >
-                {message}
+                {message.replace(/^Error:\s*/, "")}
               </div>
             )}
 

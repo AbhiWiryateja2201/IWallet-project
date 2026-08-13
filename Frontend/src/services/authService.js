@@ -8,7 +8,12 @@ export const register = async (userData) => {
   });
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(errorText);
+    let errorMessage = errorText;
+    try {
+      const errorJson = JSON.parse(errorText);
+      if (errorJson.message) errorMessage = errorJson.message;
+    } catch (e) {}
+    throw new Error(errorMessage);
   }
   return response.json();
 };
@@ -21,7 +26,12 @@ export const login = async (credentials) => {
   });
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(errorText);
+    let errorMessage = errorText;
+    try {
+      const errorJson = JSON.parse(errorText);
+      if (errorJson.message) errorMessage = errorJson.message;
+    } catch (e) {}
+    throw new Error(errorMessage);
   }
   return response.json();
 };

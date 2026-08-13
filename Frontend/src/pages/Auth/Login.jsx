@@ -30,7 +30,7 @@ export default function Login() {
       });
       navigate("/dashboard");
     } catch (err) {
-      setMessage(`Error: ${err.message}`);
+      setMessage(err.message);
     } finally {
       setLoading(false);
     }
@@ -210,7 +210,7 @@ export default function Login() {
 
             {/* Message */}
             {message && (
-              <div className={`mt-6 p-4 rounded-xl ${message.startsWith("Error") ? "bg-error-container text-on-error-container" : "bg-primary/10 text-primary"}`}>
+              <div className="mt-6 p-4 rounded-xl bg-error-container text-on-error-container">
                 <p className="text-sm text-center">{message}</p>
               </div>
             )}
