@@ -23,6 +23,7 @@ public class User {
     private String publicId;
 
     @Column(name = "full_name", nullable = false) //nullable false: NOT NULL
+
     private String fullName;
 
     @Column(name = "email", unique = true, nullable = false)
@@ -51,5 +52,4 @@ public class User {
     protected void onCreate() {
     this.publicId = UUID.randomUUID().toString();
     }
-
 }
