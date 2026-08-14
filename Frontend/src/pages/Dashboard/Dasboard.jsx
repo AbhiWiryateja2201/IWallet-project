@@ -17,6 +17,7 @@ import ElectricBoltIcon from "../../assets/icons/dashboard/electric_bolt.svg";
 import AddCardIcon from "../../assets/icons/dashboard/add_card.svg";
 import ShoppingCartIcon from "../../assets/icons/dashboard/shopping_cart.svg";
 import ArrowUpwardIcon from "../../assets/icons/dashboard/arrow_upward.svg";
+import ProfileImage from "../../assets/image/profile.png";
 
 const SideNavBar = () => {
   const navigate = useNavigate();
@@ -66,8 +67,8 @@ const SideNavBar = () => {
 };
 
 const TopNavBar = () => (
-  <header className="w-full h-16 sticky top-0 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md shadow-sm flex justify-between items-center px-4 md:px-6 z-40">
-    <div className="flex items-center bg-surface-container-low dark:bg-surface-container-highest px-4 py-2 rounded-full w-full max-w-xs sm:max-w-sm lg:w-96">
+  <header className="w-full h-16 sticky top-0 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md shadow-sm flex justify-between items-center px-container-margin z-40">
+    <div className="flex items-center bg-surface-container-low dark:bg-surface-container-highest px-4 py-2 rounded-full w-96">
       <img src={SearchIcon} alt="search" className="w-4 h-4 text-outline mr-2" />
       <input
         className="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-full placeholder:text-outline-variant"
@@ -75,11 +76,11 @@ const TopNavBar = () => (
         type="text"
       />
     </div>
-    <div className="flex items-center gap-2 sm:gap-4">
+    <div className="flex items-center gap-4">
       <button className="w-10 h-10 flex items-center justify-center text-on-secondary-container dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors rounded-full active:scale-95 transition-transform">
         <img src={NotificationsIcon} alt="notifications" className="w-6 h-6" />
       </button>
-      <div className="hidden md:flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+      <div className="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
         <div className="text-right">
           <p className="font-label-md text-label-md font-bold">Budi Santoso</p>
           <p className="text-[10px] text-secondary">Verified Member</p>
@@ -87,7 +88,7 @@ const TopNavBar = () => (
         <img
           className="w-10 h-10 rounded-full object-cover border-2 border-primary-container"
           alt="Professional portrait of Budi Santoso"
-          src="/Profile.png"
+          src={ProfileImage}
         />
       </div>
     </div>
@@ -109,23 +110,23 @@ const BalanceCard = () => {
               <h3 className="font-display-lg text-3xl sm:text-4xl md:text-[40px] leading-none font-black">
                 {visible ? 'Rp 1.250.000' : 'Rp ••••••••'}
               </h3>
-              <button className="p-2 hover:bg-white/10 rounded-full transition-colors" onClick={() => setVisible(!visible)}>
+              <button className="bg-transparent border-none p-0 cursor-pointer transition-opacity opacity-80 hover:opacity-100" onClick={() => setVisible(!visible)}>
                 <img src={visible ? VisibilityIcon : VisibilityOffIcon} alt={visible ? "sembunyikan saldo" : "tampilkan saldo"} className="w-6 h-6" />
               </button>
             </div>
           </div>
         </div>
-        <div className="flex gap-4">
-          <button onClick={() => navigate("/topup")} className="flex-1 bg-white text-primary font-bold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-xl active:scale-95 transition-all">
-            <img src={AddCircleIcon} alt="Top Up" className="w-6 h-6" />
+        <div className="flex gap-2 sm:gap-4">
+          <button onClick={() => navigate("/topup")} className="flex-1 bg-white text-primary font-bold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-xl active:scale-95 transition-all whitespace-nowrap">
+            <img src={AddCircleIcon} alt="Top Up" className="w-6 h-6 shrink-0" />
             Top Up
           </button>
-          <button onClick={() => navigate("/payment")} className="flex-1 bg-white/20 backdrop-blur-md text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 border border-white/20 hover:bg-white/30 active:scale-95 transition-all">
-            <img src={PaymentsWhiteIcon} alt="Bayar" className="w-6 h-6" />
+          <button onClick={() => navigate("/payment")} className="flex-1 bg-white/20 backdrop-blur-md text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 border border-white/20 hover:bg-white/30 active:scale-95 transition-all whitespace-nowrap">
+            <img src={PaymentsWhiteIcon} alt="Bayar" className="w-6 h-6 shrink-0" />
             Bayar
           </button>
-          <button onClick={() => navigate("/transaction")} className="flex-1 bg-white/20 backdrop-blur-md text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 border border-white/20 hover:bg-white/30 active:scale-95 transition-all">
-            <img src={HistoryWhiteIcon} alt="Riwayat" className="w-6 h-6" />
+          <button onClick={() => navigate("/transaction")} className="flex-1 bg-white/20 backdrop-blur-md text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 border border-white/20 hover:bg-white/30 active:scale-95 transition-all whitespace-nowrap">
+            <img src={HistoryWhiteIcon} alt="Riwayat" className="w-6 h-6 shrink-0" />
             Riwayat
           </button>
         </div>
@@ -231,7 +232,7 @@ const IWalletDashboard = () => (
     </div>
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
       <TransactionsList />
-      <div className="space-y-6">
+      <div className="space-y-6 min-w-0">
         <MonthlySpending />
       </div>
     </div>
@@ -241,9 +242,9 @@ const IWalletDashboard = () => (
 const IWallet = () => {
   const navigate = useNavigate();
   return (
-    <div className="bg-background text-on-background min-h-screen flex">
+    <div className="bg-background text-on-background min-h-screen flex overflow-x-hidden">
       <SideNavBar />
-      <main className="flex-1 lg:ml-64 flex flex-col min-h-screen pb-20 lg:pb-0">
+      <main className="flex-1 lg:ml-64 flex flex-col min-h-screen min-w-0 pb-20 lg:pb-0">
         <TopNavBar />
         <IWalletDashboard />
       </main>

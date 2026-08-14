@@ -8,6 +8,7 @@ import LogoutIcon from "../../assets/icons/dashboard/logout.svg";
 import SearchIcon from "../../assets/icons/dashboard/search.svg";
 import NotificationsIcon from "../../assets/icons/dashboard/notifications.svg";
 import AddCircleIcon from "../../assets/icons/dashboard/add_circle.svg";
+import ProfileImage from "../../assets/image/profile.png";
 
 const navItems = [
   { icon: DashboardIcon, label: 'Dashboard', path: '/dashboard' },
@@ -64,7 +65,7 @@ const TopNavBar = () => (
           <p className="font-label-md text-label-md font-bold">Budi Santoso</p>
           <p className="text-[10px] text-secondary">Verified Member</p>
         </div>
-        <img className="w-10 h-10 rounded-full object-cover border-2 border-primary-container" alt="Professional portrait of Budi Santoso" src="/Profile.png" />
+        <img className="w-10 h-10 rounded-full object-cover border-2 border-primary-container" alt="Professional portrait of Budi Santoso" src={ProfileImage} />
       </div>
     </div>
   </header>

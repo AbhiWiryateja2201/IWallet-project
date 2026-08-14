@@ -10,6 +10,7 @@ import CallReceivedIcon from "../../assets/icons/dashboard/call_received.svg";
 import ElectricBoltIcon from "../../assets/icons/dashboard/electric_bolt.svg";
 import AddCardIcon from "../../assets/icons/dashboard/add_card.svg";
 import ShoppingCartIcon from "../../assets/icons/dashboard/shopping_cart.svg";
+import ProfileImage from "../../assets/image/profile.png";
 
 const navItems = [
   { icon: DashboardIcon, label: 'Dashboard', path: '/dashboard' },
@@ -72,7 +73,7 @@ const TopNavBar = () => (
           <p className="font-label-md text-label-md font-bold">Budi Santoso</p>
           <p className="text-[10px] text-secondary">Verified Member</p>
         </div>
-        <img className="w-10 h-10 rounded-full object-cover border-2 border-primary-container" alt="Professional portrait of Budi Santoso" src="/Profile.png" />
+        <img className="w-10 h-10 rounded-full object-cover border-2 border-primary-container" alt="Professional portrait of Budi Santoso" src={ProfileImage} />
       </div>
     </div>
   </header>
@@ -86,7 +87,9 @@ const transactions = [
   { icon: CallReceivedIcon, iconBg: 'bg-primary-container/10', title: 'Transfer Masuk', subtitle: 'Dari Sari • Senin', amount: '+Rp 75.000', isPositive: true, status: 'Berhasil' },
 ];
 
-const HistoryPage = () => (
+const HistoryPage = () => {
+  const navigate = useNavigate();
+  return (
   <div className="bg-background text-on-background min-h-screen flex">
     <SideNavBar />
     <main className="flex-1 ml-64 flex flex-col min-h-screen">
@@ -109,7 +112,7 @@ const HistoryPage = () => (
           </div>
           <div className="space-y-6">
             {transactions.map((t, i) => (
-              <div key={i} className="flex items-center justify-between p-2 hover:bg-surface-container-low rounded-2xl transition-colors cursor-pointer group">
+              <div key={i} className="flex items-center justify-between p-2 hover:bg-surface-container-low rounded-2xl transition-colors cursor-pointer group" onClick={() => navigate('/payment/struk')}>
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 ${t.iconBg} rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform`}>
                     <img src={t.icon} alt={t.title} className="w-6 h-6" />
@@ -130,6 +133,7 @@ const HistoryPage = () => (
       </div>
     </main>
   </div>
-);
+  );
+};
 
 export default HistoryPage;
