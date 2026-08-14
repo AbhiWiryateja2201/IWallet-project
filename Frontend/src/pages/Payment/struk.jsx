@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import DashboardIcon from "../../assets/icons/dashboard/dashboard.svg"
 import PaymentsIcon from "../../assets/icons/dashboard/payments.svg"
@@ -11,12 +10,10 @@ import ProfileImage from '../../assets/image/profile.png'
 
 const navItems = [
   { icon: DashboardIcon, label: 'Dashboard', path: '/dashboard' },
-  { icon: PaymentsIcon, label: 'Bayar', path: '/payment', active: true },
+  { icon: PaymentsIcon, label: 'Bayar', path: '/payment' },
   { icon: HistoryIcon, label: 'History', path: '/transaction' },
   { icon: PersonIcon, label: 'Profile', path: '/profile' },
 ]
-
-const keypad = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 const SideNavBar = () => {
   const navigate = useNavigate();
@@ -78,31 +75,8 @@ const TopNavBar = () => (
   </header>
 );
 
-function PinInput({ pin }) {
-  return (
-    <div className="flex items-center gap-3 md:gap-4">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <span
-          key={i}
-          className={`w-4 h-4 rounded-full border-2 border-[#630ED4]/30 transition-colors ${
-            i < pin.length ? 'bg-[#630ED4] border-[#630ED4]' : 'bg-transparent'
-          }`}
-        />
-      ))}
-    </div>
-  )
-}
-
-export default function PaymentPin() {
-  const [pin, setPin] = useState('')
+export default function Struk() {
   const navigate = useNavigate()
-
-  const press = (digit) => {
-    if (pin.length >= 6) return
-    setPin((prev) => prev + digit)
-  }
-
-  const backspace = () => setPin((prev) => prev.slice(0, -1))
 
   return (
     <div className="bg-background text-on-background min-h-screen flex overflow-x-hidden">
@@ -110,84 +84,76 @@ export default function PaymentPin() {
       <main className="flex-1 lg:ml-64 flex flex-col min-h-screen min-w-0 pb-20 lg:pb-0">
         <TopNavBar />
 
-        <div className="relative flex-1 overflow-hidden flex items-center justify-center p-4 md:p-6">
-          <div className="absolute w-72 h-72 sm:w-96 sm:h-96 max-w-[90vw] max-h-[90vw] rounded-full bg-[#630ED4]/5 blur-3xl right-8 top-6" />
-          <div className="absolute w-64 h-64 sm:w-80 sm:h-80 max-w-[70vw] max-h-[70vw] rounded-full bg-[#7D3D00]/5 blur-3xl left-8 bottom-8" />
-
-          <div className="hidden md:block w-full max-w-4xl absolute inset-x-0 mx-auto top-10 px-6 opacity-25 blur-[2px] pointer-events-none select-none">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {[
-                { label: 'Total Balance', value: '$42,920.00', colorClass: 'text-[#630ED4]' },
-                { label: 'Monthly Spend', value: '$3,450.00', colorClass: 'text-[#7D3D00]' },
-                { label: 'Active Cards', value: '3 Units', colorClass: 'text-[#1D1A24]' },
-              ].map((card) => (
-                <div key={card.label} className="bg-white rounded-3xl p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
-                  <p className="text-xs font-medium text-[#4A4455]">{card.label}</p>
-                  <p className={`mt-4 text-3xl font-bold ${card.colorClass}`}>{card.value}</p>
+        <div className="flex-1 flex flex-col items-center px-4 py-10">
+          <div className="w-full max-w-[512px]">
+            <div className="bg-white rounded-t-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] p-8 flex flex-col gap-8">
+              <div className="flex flex-col items-center">
+                <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center mb-4">
+                  <span className="material-symbols-outlined text-white text-[40px]">check</span>
                 </div>
-              ))}
+                <h2 className="text-2xl font-semibold text-on-background mb-1">Pembayaran Berhasil</h2>
+                <p className="text-center text-sm text-secondary">Transaksi Anda telah diproses dengan aman</p>
+              </div>
+
+              <div className="flex items-center justify-between py-4 border-b border-outline-variant">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-12 h-12 shrink-0 rounded-xl bg-surface-variant flex items-center justify-center text-primary">
+                    <span className="material-symbols-outlined">storefront</span>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-secondary">Merchant</p>
+                    <p className="text-lg font-semibold truncate">Kedai Kopi Digital</p>
+                  </div>
+                </div>
+                <div className="text-right shrink-0 ml-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-secondary mb-1">Status</p>
+                  <span className="inline-flex px-3 py-1 rounded-full text-primary text-xs font-bold bg-primary/10">Success</span>
+                </div>
+              </div>
+
+              <div className="bg-surface-container-low rounded-2xl p-6 flex flex-col items-center">
+                <p className="text-xs font-medium text-secondary mb-1">Total Pembayaran</p>
+                <p className="text-[32px] leading-10 font-extrabold text-primary">Rp 45.000</p>
+              </div>
+
+              <div className="pt-4 flex flex-col gap-5">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-secondary mb-1">Tanggal &amp; Waktu</p>
+                  <p className="text-sm font-semibold">24 Mei 2024, 14:30 WIB</p>
+                </div>
+
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-secondary mb-1">Metode Pembayaran</p>
+                    <p className="text-sm font-semibold text-primary flex items-center gap-2">
+                      <span className="material-symbols-outlined text-base">account_balance_wallet</span>
+                      IWallet Balance
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-secondary mb-1">ID Transaksi</p>
+                  <div className="flex items-center justify-between bg-surface rounded-lg px-3 py-2 ring-1 ring-outline-variant/30">
+                    <span className="text-xs font-mono text-secondary">TRX-992834-IWL-2024</span>
+                    <span className="material-symbols-outlined text-primary text-sm cursor-pointer hover:opacity-70">content_copy</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-8 border-t border-outline-variant text-center">
+                <p className="text-[10px] italic font-semibold text-outline">Terima kasih telah menggunakan IWallet untuk transaksi harian Anda.</p>
+              </div>
             </div>
-            <div className="mt-6 h-64 bg-white rounded-3xl shadow-[0_1px_2px_rgba(0,0,0,0.05)]" />
-          </div>
 
-          <div className="relative z-10 w-full max-w-md bg-white/85 backdrop-blur-xl rounded-4xl shadow-[0_20px_50px_rgba(99,14,212,0.15)] ring-1 ring-white/50 p-6 sm:p-8 flex flex-col items-center">
-            <div className="w-16 h-16 rounded-2xl bg-[#7C3AED]/10 flex items-center justify-center mb-4">
-              <span className="material-symbols-outlined text-[#630ED4] text-3xl">pin</span>
-            </div>
-
-            <h2 className="text-2xl font-semibold">Masukkan PIN Anda</h2>
-            <p className="mt-2 text-center text-sm text-[#4A4455] max-w-70">
-              Konfirmasi pembayaran Anda dengan memasukkan 6 digit PIN keamanan.
-            </p>
-
-            <div className="mt-6 mb-8">
-              <PinInput pin={pin} />
-            </div>
-
-            <div className="grid grid-cols-3 gap-x-3 gap-y-2 w-full max-w-56">
-              {keypad.map((digit) => (
-                <button
-                  key={digit}
-                  type="button"
-                  onClick={() => press(digit)}
-                  className="w-14 h-14 mx-auto rounded-full flex items-center justify-center text-xl font-bold text-[#4A4455] hover:bg-[#F9F1FF] active:scale-90 transition-all duration-150"
-                >
-                  {digit}
-                </button>
-              ))}
-              <button type="button" className="w-14 h-14 mx-auto rounded-full flex items-center justify-center text-xl font-bold text-[#4A4455] hover:bg-[#F9F1FF] active:scale-90 transition-all duration-150" aria-label="Empty" tabIndex={-1} />
+            <div className="mt-4">
               <button
                 type="button"
-                onClick={() => press('0')}
-                className="w-14 h-14 mx-auto rounded-full flex items-center justify-center text-xl font-bold text-[#4A4455] hover:bg-[#F9F1FF] active:scale-90 transition-all duration-150"
+                onClick={() => navigate('/transaction')}
+                className="w-full py-4 rounded-2xl bg-primary text-white font-bold flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all"
               >
-                0
-              </button>
-              <button
-                type="button"
-                onClick={backspace}
-                className="w-14 h-14 mx-auto rounded-full flex items-center justify-center text-[#4A4455] hover:bg-[#F9F1FF] active:scale-90 transition-all duration-150"
-                aria-label="Hapus digit"
-              >
-                <span className="material-symbols-outlined">backspace</span>
-              </button>
-            </div>
-
-            <button type="button" className="mt-4 text-[#630ED4] text-base font-bold hover:underline">
-              Lupa PIN?
-            </button>
-
-            <div className="mt-6 w-full grid grid-cols-2 gap-4">
-              <button type="button" onClick={() => navigate('/payment/confirm')} className="py-4 rounded-2xl bg-white text-[#626566] font-bold text-base ring-1 ring-[#CCC3D8]/40 hover:bg-[#F9F1FF] active:scale-[0.98] transition-all">
-                Cancel
-              </button>
-              <button
-                type="button"
-                disabled={pin.length < 6}
-                onClick={() => navigate('/payment/struk')}
-                className="py-4 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#630ED4] text-white font-bold text-base shadow-[0_10px_20px_rgba(99,14,212,0.20)] hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none"
-              >
-                Verify
+                <span className="material-symbols-outlined">check_circle</span>
+                Selesai
               </button>
             </div>
           </div>

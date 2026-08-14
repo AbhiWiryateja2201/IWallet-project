@@ -6,6 +6,7 @@ import PersonIcon from "../../assets/icons/dashboard/person.svg";
 import LogoutIcon from "../../assets/icons/dashboard/logout.svg";
 import SearchIcon from "../../assets/icons/dashboard/search.svg";
 import NotificationsIcon from "../../assets/icons/dashboard/notifications.svg";
+import ProfileImage from "../../assets/image/profile.png";
 
 const navItems = [
   { icon: DashboardIcon, label: 'Dashboard', path: '/dashboard' },
@@ -68,7 +69,7 @@ const TopNavBar = () => (
           <p className="font-label-md text-label-md font-bold">Budi Santoso</p>
           <p className="text-[10px] text-secondary">Verified Member</p>
         </div>
-        <img className="w-10 h-10 rounded-full object-cover border-2 border-primary-container" alt="Professional portrait of Budi Santoso" src="/Profile.png" />
+        <img className="w-10 h-10 rounded-full object-cover border-2 border-primary-container" alt="Professional portrait of Budi Santoso" src={ProfileImage} />
       </div>
     </div>
   </header>
@@ -96,7 +97,7 @@ const ProfilePage = () => (
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-stack-gap items-start">
           <div className="bg-surface rounded-3xl p-8 premium-shadow flex flex-col items-center text-center">
-            <img className="w-24 h-24 rounded-full object-cover border-4 border-primary-container mb-4" alt="Professional portrait of Budi Santoso" src="/Profile.png" />
+            <img className="w-24 h-24 rounded-full object-cover border-4 border-primary-container mb-4" alt="Professional portrait of Budi Santoso" src={ProfileImage} />
             <h4 className="font-headline-sm text-headline-sm">Budi Santoso</h4>
             <p className="text-secondary text-sm">Verified Member</p>
             <span className="mt-4 px-4 py-1.5 rounded-full bg-primary-container/10 text-primary text-xs font-bold">ID: IWL-88901</span>

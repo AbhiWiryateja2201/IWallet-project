@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard/Dasboard'
 import Payment from './pages/Payment/Payment'
 import PaymentPin from './pages/Payment/PIN'
 import PaymentConfirm from './pages/Payment/Payment_Confirm'
+import Struk from './pages/Payment/struk'
 import TopUp from './pages/Topup/topup'
 import History from './pages/Transaction/History'
 import Profile from './pages/Profile/Profile'
@@ -19,6 +20,7 @@ function App() {
       <Route path="/payment" element={<Payment />} />
       <Route path="/payment/pin" element={<PaymentPin />} />
       <Route path="/payment/confirm" element={<PaymentConfirm />} />
+      <Route path="/payment/struk" element={<Struk />} />
       <Route path="/topup" element={<TopUp />} />
       <Route path="/transaction" element={<History />} />
       <Route path="/profile" element={<Profile />} />
