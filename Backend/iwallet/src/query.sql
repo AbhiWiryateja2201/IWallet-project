@@ -7,3 +7,5 @@ INSERT INTO merchants (public_id, merchant_name, qr_code) SELECT UUID(), 'Toko D
 SELECT public_id FROM merchants LIMIT 1;
 
 select * from transactions;
+select * from wallets;
+select * from merchants;

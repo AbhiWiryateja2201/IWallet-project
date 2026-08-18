@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import DashboardIcon from "../../assets/icons/dashboard/dashboard.svg"
 import PaymentsIcon from "../../assets/icons/dashboard/payments.svg"
 import HistoryIcon from "../../assets/icons/dashboard/history.svg"
@@ -77,6 +77,17 @@ const TopNavBar = () => (
 
 export default function Struk() {
   const navigate = useNavigate()
+  const location = useLocation()
+  
+  const qrData = location.state?.qrData || {}
+  const successData = location.state?.successData?.data || {}
+  
+  const merchantName = qrData.merchantName || "Merchant"
+  const amount = qrData.amount || 0
+  const transactionId = successData.publicId || `TRX-${Date.now()}`
+  
+  const formatRp = (num) => new Intl.NumberFormat('id-ID').format(num)
+  const dateStr = new Date().toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' }).replace('.', ':') + ' WIB'
 
   return (
     <div className="bg-background text-on-background min-h-screen flex overflow-x-hidden">
@@ -102,7 +113,7 @@ export default function Struk() {
                   </div>
                   <div className="min-w-0">
                     <p className="text-[10px] font-semibold uppercase tracking-wider text-secondary">Merchant</p>
-                    <p className="text-lg font-semibold truncate">Kedai Kopi Digital</p>
+                    <p className="text-lg font-semibold truncate">{merchantName}</p>
                   </div>
                 </div>
                 <div className="text-right shrink-0 ml-3">
@@ -113,13 +124,13 @@ export default function Struk() {
 
               <div className="bg-surface-container-low rounded-2xl p-6 flex flex-col items-center">
                 <p className="text-xs font-medium text-secondary mb-1">Total Pembayaran</p>
-                <p className="text-[32px] leading-10 font-extrabold text-primary">Rp 45.000</p>
+                <p className="text-[32px] leading-10 font-extrabold text-primary">Rp {formatRp(amount)}</p>
               </div>
 
               <div className="pt-4 flex flex-col gap-5">
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-wider text-secondary mb-1">Tanggal &amp; Waktu</p>
-                  <p className="text-sm font-semibold">24 Mei 2026, 14:30 WIB</p>
+                  <p className="text-sm font-semibold">{dateStr}</p>
                 </div>
 
                 <div className="flex justify-between items-start">
@@ -135,7 +146,7 @@ export default function Struk() {
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-wider text-secondary mb-1">ID Transaksi</p>
                   <div className="flex items-center justify-between bg-surface rounded-lg px-3 py-2 ring-1 ring-outline-variant/30">
-                    <span className="text-xs font-mono text-secondary">TRX-992834-IWL-2026</span>
+                    <span className="text-xs font-mono text-secondary">{transactionId}</span>
                     <span className="material-symbols-outlined text-primary text-sm cursor-pointer hover:opacity-70">content_copy</span>
                   </div>
                 </div>

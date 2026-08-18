@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import DashboardIcon from "../../assets/icons/dashboard/dashboard.svg"
 import PaymentsIcon from "../../assets/icons/dashboard/payments.svg"
 import HistoryIcon from "../../assets/icons/dashboard/history.svg"
@@ -95,7 +95,11 @@ function PinInput({ pin }) {
 
 export default function PaymentPin() {
   const [pin, setPin] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
+  
+  const qrData = location.state?.qrData || {}
 
   const press = (digit) => {
     if (pin.length >= 6) return
@@ -103,6 +107,44 @@ export default function PaymentPin() {
   }
 
   const backspace = () => setPin((prev) => prev.slice(0, -1))
+
+  const handleVerify = async () => {
+    setIsLoading(true)
+    const token = localStorage.getItem('token')
+    if (!token) {
+      setIsLoading(false)
+      return navigate('/login')
+    }
+    
+    try {
+      const res = await fetch('http://localhost:8080/api/payment/pay', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'Idempotency-Key': crypto.randomUUID()
+        },
+        body: JSON.stringify({
+          merchantPublicId: qrData.merchantId,
+          amount: qrData.amount,
+          pin: pin
+        })
+      })
+      const data = await res.json()
+      
+      if (res.ok) {
+        navigate('/payment/struk', { state: { successData: data, qrData } })
+      } else {
+        alert(data.message || 'Pembayaran gagal')
+        setPin('')
+      }
+    } catch (e) {
+      alert('Terjadi kesalahan jaringan')
+      setPin('')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="bg-background text-on-background min-h-screen flex overflow-x-hidden">
@@ -178,16 +220,16 @@ export default function PaymentPin() {
             </button>
 
             <div className="mt-6 w-full grid grid-cols-2 gap-4">
-              <button type="button" onClick={() => navigate('/payment/confirm')} className="py-4 rounded-2xl bg-white text-[#626566] font-bold text-base ring-1 ring-[#CCC3D8]/40 hover:bg-[#F9F1FF] active:scale-[0.98] transition-all">
+              <button type="button" onClick={() => navigate('/payment/confirm', { state: { qrData } })} className="py-4 rounded-2xl bg-white text-[#626566] font-bold text-base ring-1 ring-[#CCC3D8]/40 hover:bg-[#F9F1FF] active:scale-[0.98] transition-all">
                 Cancel
               </button>
               <button
                 type="button"
-                disabled={pin.length < 6}
-                onClick={() => navigate('/payment/struk')}
-                className="py-4 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#630ED4] text-white font-bold text-base shadow-[0_10px_20px_rgba(99,14,212,0.20)] hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none"
+                disabled={pin.length < 6 || isLoading}
+                onClick={handleVerify}
+                className="py-4 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#630ED4] text-white font-bold text-base shadow-[0_10px_20px_rgba(99,14,212,0.20)] hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2"
               >
-                Verify
+                {isLoading ? <span className="material-symbols-outlined animate-spin">refresh</span> : 'Verify'}
               </button>
             </div>
           </div>
