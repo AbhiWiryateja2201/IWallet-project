@@ -51,26 +51,26 @@ const SideNavBar = () => {
   );
 };
 
-const TopNavBar = () => (
-  <header className="w-full h-16 sticky top-0 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md shadow-sm flex justify-between items-center px-container-margin z-40">
-    <div className="flex items-center bg-surface-container-low dark:bg-surface-container-highest px-4 py-2 rounded-full w-96">
-      <img src={SearchIcon} alt="search" className="w-4 h-4 text-outline mr-2" />
-      <input className="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-full placeholder:text-outline-variant" placeholder="Cari transaksi atau fitur..." type="text" />
-    </div>
+const TopNavBar = () => {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const userName = user.fullName || "Budi Santoso";
+  return (
+  <header className="w-full h-16 sticky top-0 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md shadow-sm flex justify-end items-center px-container-margin z-40">
     <div className="flex items-center gap-4">
       <button className="w-10 h-10 flex items-center justify-center text-on-secondary-container dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors rounded-full active:scale-95 transition-transform">
         <img src={NotificationsIcon} alt="notifications" className="w-6 h-6" />
       </button>
       <div className="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
         <div className="text-right">
-          <p className="font-label-md text-label-md font-bold">Budi Santoso</p>
+          <p className="font-label-md text-label-md font-bold">{userName}</p>
           <p className="text-[10px] text-secondary">Verified Member</p>
         </div>
-        <img className="w-10 h-10 rounded-full object-cover border-2 border-primary-container" alt="Professional portrait of Budi Santoso" src={ProfileImage} />
+        <img className="w-10 h-10 rounded-full object-cover border-2 border-primary-container" alt={`Professional portrait of ${userName}`} src={ProfileImage} />
       </div>
     </div>
   </header>
-);
+  );
+};
 
 const TopUpPage = () => {
   const navigate = useNavigate();
