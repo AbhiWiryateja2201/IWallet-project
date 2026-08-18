@@ -119,7 +119,7 @@ export default function Struk() {
               <div className="pt-4 flex flex-col gap-5">
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-wider text-secondary mb-1">Tanggal &amp; Waktu</p>
-                  <p className="text-sm font-semibold">24 Mei 2024, 14:30 WIB</p>
+                  <p className="text-sm font-semibold">24 Mei 2026, 14:30 WIB</p>
                 </div>
 
                 <div className="flex justify-between items-start">
@@ -135,7 +135,7 @@ export default function Struk() {
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-wider text-secondary mb-1">ID Transaksi</p>
                   <div className="flex items-center justify-between bg-surface rounded-lg px-3 py-2 ring-1 ring-outline-variant/30">
-                    <span className="text-xs font-mono text-secondary">TRX-992834-IWL-2024</span>
+                    <span className="text-xs font-mono text-secondary">TRX-992834-IWL-2026</span>
                     <span className="material-symbols-outlined text-primary text-sm cursor-pointer hover:opacity-70">content_copy</span>
                   </div>
                 </div>

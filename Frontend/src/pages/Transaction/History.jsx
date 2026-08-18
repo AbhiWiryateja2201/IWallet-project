@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getTransactionHistory } from '../../services/transactionService';
 import DashboardIcon from "../../assets/icons/dashboard/dashboard.svg";
 import PaymentsIcon from "../../assets/icons/dashboard/payments.svg";
 import HistoryIcon from "../../assets/icons/dashboard/history.svg";
@@ -22,7 +24,7 @@ const navItems = [
 const SideNavBar = () => {
   const navigate = useNavigate();
   return (
-    <aside className="fixed left-0 top-0 h-full w-64 bg-surface dark:bg-surface-container-low flex flex-col py-block-padding gap-stack-gap z-50 border-r border-outline-variant/30 shadow-md">
+    <aside className="hidden lg:flex fixed left-0 top-0 h-full w-64 bg-surface dark:bg-surface-container-low flex-col py-6 md:py-8 gap-6 z-50 border-r border-outline-variant/30 shadow-md">
       <div className="px-6 mb-8">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center">
@@ -58,7 +60,11 @@ const SideNavBar = () => {
   );
 };
 
-const TopNavBar = () => (
+const TopNavBar = () => {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const userName = user.fullName || "Budi Santoso";
+  
+  return (
   <header className="w-full h-16 sticky top-0 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md shadow-sm flex justify-between items-center px-container-margin z-40">
     <div className="flex items-center bg-surface-container-low dark:bg-surface-container-highest px-4 py-2 rounded-full w-96">
       <img src={SearchIcon} alt="search" className="w-4 h-4 text-outline mr-2" />
@@ -70,31 +76,43 @@ const TopNavBar = () => (
       </button>
       <div className="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
         <div className="text-right">
-          <p className="font-label-md text-label-md font-bold">Budi Santoso</p>
+          <p className="font-label-md text-label-md font-bold">{userName}</p>
           <p className="text-[10px] text-secondary">Verified Member</p>
         </div>
-        <img className="w-10 h-10 rounded-full object-cover border-2 border-primary-container" alt="Professional portrait of Budi Santoso" src={ProfileImage} />
+        <img className="w-10 h-10 rounded-full object-cover border-2 border-primary-container" alt={`Professional portrait of ${userName}`} src={ProfileImage} />
       </div>
     </div>
   </header>
-);
+  );
+};
 
-const transactions = [
-  { icon: CallReceivedIcon, iconBg: 'bg-primary-container/10', title: 'Transfer Masuk', subtitle: 'Dari Andi • 10:45 AM', amount: '+Rp 200.000', isPositive: true, status: 'Berhasil' },
-  { icon: ElectricBoltIcon, iconBg: 'bg-secondary-container', title: 'PLN Token Listrik', subtitle: 'Pembayaran • 09:12 AM', amount: '-Rp 50.500', isPositive: false, status: 'Berhasil' },
-  { icon: AddCardIcon, iconBg: 'bg-primary-container/10', title: 'Top Up via BCA', subtitle: 'Virtual Account • Kemarin', amount: '+Rp 500.000', isPositive: true, status: 'Berhasil' },
-  { icon: ShoppingCartIcon, iconBg: 'bg-secondary-container', title: 'Indomaret Belanja Harian', subtitle: 'Merchant Payment • Kemarin', amount: '-Rp 125.000', isPositive: false, status: 'Berhasil' },
-  { icon: CallReceivedIcon, iconBg: 'bg-primary-container/10', title: 'Transfer Masuk', subtitle: 'Dari Sari • Senin', amount: '+Rp 75.000', isPositive: true, status: 'Berhasil' },
-];
+
 
 const HistoryPage = () => {
   const navigate = useNavigate();
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getTransactionHistory()
+      .then(data => {
+        setTransactions(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch transactions", err);
+        setLoading(false);
+      });
+  }, []);
+
+  const formatRp = (num) => new Intl.NumberFormat('id-ID').format(num);
+
   return (
-  <div className="bg-background text-on-background min-h-screen flex">
+  <div className="bg-background text-on-background min-h-screen flex overflow-x-hidden">
     <SideNavBar />
-    <main className="flex-1 ml-64 flex flex-col min-h-screen">
+    <main className="flex-1 lg:ml-64 flex flex-col min-h-screen min-w-0 pb-20 lg:pb-0">
       <TopNavBar />
-      <div className="p-block-padding flex flex-col gap-stack-gap max-w-7xl mx-auto w-full">
+      <div className="p-4 sm:p-6 md:p-8 flex flex-col gap-6 max-w-7xl mx-auto w-full">
         <section className="mb-2">
           <h2 className="font-display-lg text-display-lg">Riwayat Transaksi</h2>
           <p className="font-body-md text-body-md text-secondary">Semua aktivitas keuangan Anda dalam satu tempat.</p>
@@ -111,27 +129,62 @@ const HistoryPage = () => {
             </div>
           </div>
           <div className="space-y-6">
-            {transactions.map((t, i) => (
-              <div key={i} className="flex items-center justify-between p-2 hover:bg-surface-container-low rounded-2xl transition-colors cursor-pointer group" onClick={() => navigate('/payment/struk')}>
-                <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 ${t.iconBg} rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform`}>
-                    <img src={t.icon} alt={t.title} className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="font-body-lg text-body-lg font-bold">{t.title}</p>
-                    <p className="text-secondary text-sm">{t.subtitle}</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className={`font-headline-sm text-headline-sm ${t.isPositive ? 'text-[#10b981]' : 'text-on-background'}`}>{t.amount}</p>
-                  <p className="text-[10px] text-secondary font-bold uppercase">{t.status}</p>
-                </div>
+            {loading ? (
+              <div className="text-center py-8 opacity-70">
+                <p className="font-bold text-secondary">Memuat riwayat...</p>
               </div>
-            ))}
+            ) : transactions.length === 0 ? (
+              <div className="text-center py-8 opacity-70">
+                <p className="font-bold text-secondary">(BELUM ADA RIWAYAT TRANSAKSI)</p>
+              </div>
+            ) : (
+              transactions.map((tx, i) => {
+                const isPositive = tx.type === 'TOP_UP';
+                const icon = isPositive ? AddCardIcon : ShoppingCartIcon;
+                const iconBg = isPositive ? 'bg-primary-container/10' : 'bg-secondary-container';
+                const title = tx.type === 'TOP_UP' ? 'Top Up Saldo' : tx.merchantName || 'Pembayaran';
+                const prefix = isPositive ? '+' : '-';
+                
+                const dateObj = new Date(tx.createdAt);
+                const dateStr = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+
+                return (
+                  <div key={tx.transactionId || i} className="flex items-center justify-between p-2 hover:bg-surface-container-low rounded-2xl transition-colors cursor-pointer group" onClick={() => navigate('/payment/struk')}>
+                    <div className="flex items-center gap-4">
+                      <div className={`w-12 h-12 ${iconBg} rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform`}>
+                        <img src={icon} alt={title} className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <p className="font-body-lg text-body-lg font-bold">{title}</p>
+                        <p className="text-secondary text-sm">{`${tx.type} • ${dateStr}`}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className={`font-headline-sm text-headline-sm ${isPositive ? 'text-[#10b981]' : 'text-on-background'}`}>{`${prefix}Rp ${formatRp(tx.amount)}`}</p>
+                      <p className="text-[10px] text-secondary font-bold uppercase">{tx.status}</p>
+                    </div>
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
       </div>
     </main>
+    <nav className="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-surface/95 backdrop-blur-xl border-t border-outline-variant/30 flex justify-around py-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))]">
+      {navItems.map((item) => (
+        <a
+          key={item.label}
+          className={`flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-xl cursor-pointer ${
+            item.active ? 'text-primary' : 'text-secondary'
+          }`}
+          onClick={() => navigate(item.path)}
+        >
+          <img src={item.icon} alt={item.label} className="w-6 h-6" />
+          <span className="text-[10px] font-medium">{item.label}</span>
+        </a>
+      ))}
+    </nav>
   </div>
   );
 };

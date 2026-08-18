@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { topUpBalance } from '../../services/topUpService';
 import DashboardIcon from "../../assets/icons/dashboard/dashboard.svg";
 import PaymentsIcon from "../../assets/icons/dashboard/payments.svg";
 import HistoryIcon from "../../assets/icons/dashboard/history.svg";
@@ -77,6 +78,30 @@ const TopUpPage = () => {
   const [method, setMethod] = useState('BCA Virtual Account');
   const amounts = ['50.000', '100.000', '250.000', '500.000', '1.000.000'];
   const methods = ['BCA Virtual Account', 'Mandiri Virtual Account', 'OVO', 'GoPay', 'DANA', 'QRIS'];
+  const [loading, setLoading] = useState(false);
+
+  const handleTopUp = async () => {
+    if (!amount) {
+      alert("Masukkan nominal top up!");
+      return;
+    }
+    const cleanAmount = amount.replace(/\./g, '');
+    const numAmount = parseInt(cleanAmount, 10);
+    if (isNaN(numAmount) || numAmount <= 0) {
+      alert("Nominal tidak valid!");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await topUpBalance(numAmount);
+      navigate('/topup/success', { state: { amount: numAmount } });
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="bg-background text-on-background min-h-screen flex">
@@ -147,10 +172,11 @@ const TopUpPage = () => {
               </div>
               <button
                 type="button"
-                onClick={() => navigate('/topup')}
-                className="w-full mt-8 py-4 rounded-2xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold shadow-lg shadow-primary/20 active:scale-[0.98] transition-all"
+                onClick={handleTopUp}
+                disabled={loading}
+                className="w-full mt-8 py-4 rounded-2xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold shadow-lg shadow-primary/20 active:scale-[0.98] transition-all disabled:opacity-70"
               >
-                Lanjutkan Top Up
+                {loading ? 'Memproses...' : 'Lanjutkan Top Up'}
               </button>
             </div>
           </div>

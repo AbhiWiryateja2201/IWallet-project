@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import DashboardIcon from "../../assets/icons/dashboard/dashboard.svg"
 import PaymentsIcon from "../../assets/icons/dashboard/payments.svg"
 import HistoryIcon from "../../assets/icons/dashboard/history.svg"
@@ -77,6 +77,18 @@ const TopNavBar = () => (
 
 export default function PaymentConfirm() {
   const navigate = useNavigate()
+  const location = useLocation()
+  
+  const qrData = location.state?.qrData || {}
+  const merchantId = qrData.merchantId || "MCH-99283-ID"
+  const merchantName = qrData.merchantName || "The Daily Grind Coffee"
+  const nominalTransaksi = qrData.amount || 150000
+  
+  const serviceFee = 1500
+  const discount = 5000
+  const totalPay = nominalTransaksi + serviceFee - discount
+  
+  const formatRp = (num) => new Intl.NumberFormat('id-ID').format(num)
 
   return (
     <div className="bg-background text-on-background min-h-screen flex overflow-x-hidden">
@@ -94,11 +106,11 @@ export default function PaymentConfirm() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#630ED4]">Merchant Partner</p>
-                    <h2 className="text-xl md:text-2xl font-semibold truncate">The Daily Grind Coffee</h2>
+                    <h2 className="text-xl md:text-2xl font-semibold truncate">{merchantName}</h2>
                     <p className="text-sm text-[#4A4455] flex items-center gap-2 mt-0.5">
                       <span className="material-symbols-outlined text-base">pin_drop</span>
                       Merchant ID:
-                      <span className="font-mono font-bold text-[#4A4455]">MCH-99283-ID</span>
+                      <span className="font-mono font-bold text-[#4A4455]">{merchantId}</span>
                     </p>
                   </div>
                   <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F3EBFA] text-[#630ED4] text-xs font-medium shrink-0">
@@ -119,7 +131,7 @@ export default function PaymentConfirm() {
 
                   <div className="mt-6 flex items-baseline gap-2 px-4 md:px-6 py-8 rounded-2xl ring-2 ring-[#CCC3D8]/20">
                     <span className="text-3xl md:text-4xl font-bold text-[#4A4455]/50">Rp</span>
-                    <span className="text-4xl md:text-5xl font-bold">150.000</span>
+                    <span className="text-4xl md:text-5xl font-bold">{formatRp(nominalTransaksi)}</span>
                   </div>
 
                   <p className="mt-5 flex items-center gap-2 text-sm text-[#4A4455]">
@@ -167,7 +179,7 @@ export default function PaymentConfirm() {
                         <p className="text-xs font-medium text-[#4A4455]">Nominal Transaksi</p>
                         <p className="text-[10px] text-[#4A4455]">Subtotal Tagihan</p>
                       </div>
-                      <span className="text-xs font-bold shrink-0">Rp 150.000</span>
+                      <span className="text-xs font-bold shrink-0">Rp {formatRp(nominalTransaksi)}</span>
                     </div>
 
                     <div className="flex justify-between items-start gap-3">
@@ -175,7 +187,7 @@ export default function PaymentConfirm() {
                         <p className="text-xs font-medium text-[#4A4455]">Biaya Layanan</p>
                         <p className="text-[10px] text-[#4A4455]">IWallet processing fee</p>
                       </div>
-                      <span className="text-xs font-bold shrink-0">Rp 1.500</span>
+                      <span className="text-xs font-bold shrink-0">Rp {formatRp(serviceFee)}</span>
                     </div>
 
                     <div className="flex justify-between items-start gap-3">
@@ -183,7 +195,7 @@ export default function PaymentConfirm() {
                         <p className="text-xs font-medium text-[#16A34A]">Diskon Promo</p>
                         <p className="text-[10px] text-[#4A4455]">Cashback Promo Kopi</p>
                       </div>
-                      <span className="text-xs font-bold text-[#16A34A] shrink-0">-Rp 5.000</span>
+                      <span className="text-xs font-bold text-[#16A34A] shrink-0">-Rp {formatRp(discount)}</span>
                     </div>
 
                     <div className="pt-6 border-t border-[#CCC3D8]/50 flex justify-between items-end gap-3">
@@ -191,7 +203,7 @@ export default function PaymentConfirm() {
                         <p className="text-base font-semibold">Total Bayar</p>
                         <p className="text-[10px] text-[#4A4455]">Sudah termasuk pajak &amp; biaya</p>
                       </div>
-                      <span className="text-lg font-semibold text-[#630ED4] shrink-0">Rp 146.500</span>
+                      <span className="text-lg font-semibold text-[#630ED4] shrink-0">Rp {formatRp(totalPay)}</span>
                     </div>
                   </div>
 

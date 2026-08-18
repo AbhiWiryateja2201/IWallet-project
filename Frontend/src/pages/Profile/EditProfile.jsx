@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardIcon from "../../assets/icons/dashboard/dashboard.svg";
 import PaymentsIcon from "../../assets/icons/dashboard/payments.svg";
@@ -80,18 +81,19 @@ const TopNavBar = () => {
   );
 };
 
-const ProfilePage = () => {
+const EditProfilePage = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  
-  const fields = [
-    { label: 'Nama Lengkap', value: user.fullName || '-' },
-    { label: 'Email', value: user.email || '-' },
-    { label: 'Nomor Ponsel', value: user.phone || '-' },
-    { label: 'Alamat', value: user.address || '-' },
-    { label: 'Tanggal Lahir', value: user.dob || '-' },
-    { label: 'Tipe Akun', value: 'Verified Member' },
-  ];
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user') || '{}'));
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = () => {
+    localStorage.setItem('user', JSON.stringify(user));
+    alert("Profil berhasil diperbarui!");
+    navigate('/profile');
+  };
 
   return (
     <div className="bg-background text-on-background min-h-screen flex overflow-x-hidden">
@@ -99,32 +101,47 @@ const ProfilePage = () => {
       <main className="flex-1 lg:ml-64 flex flex-col min-h-screen min-w-0 pb-20 lg:pb-0">
         <TopNavBar />
         <div className="p-4 sm:p-6 md:p-8 flex flex-col gap-6 max-w-7xl mx-auto w-full">
-          <section className="mb-2">
-            <h2 className="font-display-lg text-display-lg">Profil Saya</h2>
-            <p className="font-body-md text-body-md text-secondary">Kelola informasi pribadi akun Anda.</p>
-          </section>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-            <div className="bg-surface rounded-3xl p-8 premium-shadow flex flex-col items-center text-center">
-              <img className="w-24 h-24 rounded-full object-cover border-4 border-primary-container mb-4" alt="Profile" src={ProfileImage} />
-              <h4 className="font-headline-sm text-headline-sm">{user.fullName || "User"}</h4>
-              <p className="text-secondary text-sm">Verified Member</p>
-              <span className="mt-4 px-4 py-1.5 rounded-full bg-primary-container/10 text-primary text-xs font-bold">ID: {user.publicId || 'IWL-XXXXX'}</span>
-              <button onClick={() => navigate('/profile/edit')} type="button" className="w-full mt-8 py-3 rounded-2xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                Edit Profil
-              </button>
+          <div className="flex items-center justify-between mb-2">
+            <div>
+              <h2 className="font-display-lg text-display-lg">Edit Profil</h2>
+              <p className="font-body-md text-body-md text-secondary">Perbarui informasi data diri Anda.</p>
             </div>
+            <button onClick={() => navigate('/profile')} className="px-4 py-2 rounded-full bg-surface-container-low text-secondary font-bold hover:brightness-95 active:scale-95 transition-all">
+              Kembali
+            </button>
+          </div>
 
-            <div className="lg:col-span-2 bg-surface rounded-3xl p-8 premium-shadow">
-              <h4 className="font-headline-md text-headline-md mb-6">Informasi Pribadi</h4>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {fields.map((f) => (
-                  <div key={f.label} className="p-5 rounded-2xl bg-surface-container-low">
-                    <p className="text-xs font-bold uppercase tracking-wider text-secondary mb-1">{f.label}</p>
-                    <p className="font-body-lg font-bold">{f.value}</p>
-                  </div>
-                ))}
+          <div className="bg-surface rounded-3xl p-8 premium-shadow max-w-3xl mx-auto w-full">
+            <div className="flex flex-col items-center mb-8">
+              <img className="w-24 h-24 rounded-full object-cover border-4 border-primary-container mb-4 cursor-pointer hover:opacity-80 transition-opacity" alt="Profile" src={ProfileImage} />
+              <p className="text-xs font-bold text-primary cursor-pointer hover:underline">Ubah Foto Profil</p>
+            </div>
+            
+            <div className="space-y-5">
+              <div>
+                <label className="block text-xs font-bold text-secondary mb-1">Nama Lengkap</label>
+                <input type="text" name="fullName" value={user.fullName || ''} onChange={handleChange} className="w-full p-4 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-primary outline-none font-body-lg" />
               </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary mb-1">Email</label>
+                <input type="email" name="email" value={user.email || ''} onChange={handleChange} className="w-full p-4 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-primary outline-none font-body-lg" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary mb-1">Nomor Ponsel</label>
+                <input type="text" name="phone" value={user.phone || ''} onChange={handleChange} className="w-full p-4 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-primary outline-none font-body-lg" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary mb-1">Alamat</label>
+                <textarea name="address" value={user.address || ''} onChange={handleChange} rows="3" className="w-full p-4 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-primary outline-none font-body-lg resize-none"></textarea>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary mb-1">Tanggal Lahir</label>
+                <input type="text" name="dob" value={user.dob || ''} onChange={handleChange} placeholder="Misal: 15 Agustus 1995" className="w-full p-4 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-primary outline-none font-body-lg" />
+              </div>
+              
+              <button type="button" onClick={handleSave} className="w-full mt-6 py-4 rounded-xl bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:scale-[1.01] active:scale-[0.98] transition-all">
+                Simpan Perubahan
+              </button>
             </div>
           </div>
         </div>
@@ -147,4 +164,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default EditProfilePage;

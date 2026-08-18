@@ -24,10 +24,16 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await login({
+      const res = await login({
         email: formData.email,
         password: formData.password,
       });
+      if (res.token) {
+        localStorage.setItem("token", res.token);
+      }
+      if (res.user) {
+        localStorage.setItem("user", JSON.stringify(res.user));
+      }
       navigate("/dashboard");
     } catch (err) {
       setMessage(err.message);
@@ -232,11 +238,11 @@ export default function Login() {
       </main>
 
       {/* Footer */}
-      <footer className="fixed bottom-6 w-full text-center pointer-events-none z-10">
-        <p className="font-label-sm text-label-sm text-outline opacity-50 px-4">
-          © 2024 IWallet Digital. Berlisensi oleh OJK & Bank Indonesia.
-        </p>
-      </footer>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center w-full">
+          <p className="text-xs text-secondary/60 font-medium">
+          © 2026 IWallet Digital. Berlisensi oleh OJK & Bank Indonesia.
+          </p>
+        </div>
     </div>
   );
 }

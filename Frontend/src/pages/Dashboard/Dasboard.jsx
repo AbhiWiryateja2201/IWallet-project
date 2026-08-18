@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getBalance } from '../../services/walletService';
+import { getTransactionHistory } from '../../services/transactionService';
 import DashboardIcon from "../../assets/icons/dashboard/dashboard.svg";
 import PaymentsIcon from "../../assets/icons/dashboard/payments.svg";
 import PaymentsWhiteIcon from "../../assets/icons/dashboard/payments_white.svg";
@@ -66,7 +68,11 @@ const SideNavBar = () => {
   );
 };
 
-const TopNavBar = () => (
+const TopNavBar = () => {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const userName = user.fullName || "Budi Santoso";
+  
+  return (
   <header className="w-full h-16 sticky top-0 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md shadow-sm flex justify-between items-center px-container-margin z-40">
     <div className="flex items-center bg-surface-container-low dark:bg-surface-container-highest px-4 py-2 rounded-full w-96">
       <img src={SearchIcon} alt="search" className="w-4 h-4 text-outline mr-2" />
@@ -82,22 +88,32 @@ const TopNavBar = () => (
       </button>
       <div className="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
         <div className="text-right">
-          <p className="font-label-md text-label-md font-bold">Budi Santoso</p>
+          <p className="font-label-md text-label-md font-bold">{userName}</p>
           <p className="text-[10px] text-secondary">Verified Member</p>
         </div>
         <img
           className="w-10 h-10 rounded-full object-cover border-2 border-primary-container"
-          alt="Professional portrait of Budi Santoso"
+          alt={`Professional portrait of ${userName}`}
           src={ProfileImage}
         />
       </div>
     </div>
   </header>
-);
+  );
+};
 
 const BalanceCard = () => {
   const [visible, setVisible] = useState(true);
+  const [balance, setBalance] = useState(0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getBalance()
+      .then(data => setBalance(data.balance))
+      .catch(err => console.error("Failed to fetch balance", err));
+  }, []);
+
+  const formatRp = (num) => new Intl.NumberFormat('id-ID').format(num);
 
   return (
     <div className="relative overflow-hidden bg-gradient-to-br from-primary to-primary-container rounded-3xl p-6 md:p-8 text-on-primary shadow-lg group lg:col-span-3">
@@ -108,7 +124,7 @@ const BalanceCard = () => {
             <p className="font-label-md text-label-md uppercase tracking-widest opacity-80 mb-1">Saldo Anda</p>
             <div className="flex items-center gap-3">
               <h3 className="font-display-lg text-3xl sm:text-4xl md:text-[40px] leading-none font-black">
-                {visible ? 'Rp 1.250.000' : 'Rp ••••••••'}
+                {visible ? `Rp ${formatRp(balance)}` : 'Rp ••••••••'}
               </h3>
               <button className="bg-transparent border-none p-0 cursor-pointer transition-opacity opacity-80 hover:opacity-100" onClick={() => setVisible(!visible)}>
                 <img src={visible ? VisibilityIcon : VisibilityOffIcon} alt={visible ? "sembunyikan saldo" : "tampilkan saldo"} className="w-6 h-6" />
@@ -156,8 +172,23 @@ const TransactionItem = ({ icon, iconBg, title, subtitle, amount, isPositive, st
 const TransactionsList = () => {
   const sectionRef = useRef(null);
   const navigate = useNavigate();
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    getTransactionHistory()
+      .then(data => {
+        setTransactions(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch transactions", err);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (loading || transactions.length === 0) return;
     const el = sectionRef.current;
     if (!el) return;
     const items = el.querySelectorAll('.transaction-item');
@@ -179,7 +210,9 @@ const TransactionsList = () => {
       observer.observe(item);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [loading, transactions]);
+
+  const formatRp = (num) => new Intl.NumberFormat('id-ID').format(num);
 
   return (
     <div className="lg:col-span-2 bg-surface rounded-3xl p-8 premium-shadow">
@@ -188,43 +221,92 @@ const TransactionsList = () => {
         <a className="text-primary font-bold text-sm hover:underline cursor-pointer" onClick={() => navigate("/transaction")}>Lihat Semua</a>
       </div>
       <div className="space-y-6" ref={sectionRef}>
-        <div className="transaction-item">
-          <TransactionItem icon={CallReceivedIcon} iconBg="bg-primary-container/10" title="Transfer Masuk" subtitle="Dari Andi • 10:45 AM" amount="+Rp 200.000" isPositive={true} status="Berhasil" />
-        </div>
-        <div className="transaction-item">
-          <TransactionItem icon={ElectricBoltIcon} iconBg="bg-secondary-container" title="PLN Token Listrik" subtitle="Pembayaran • 09:12 AM" amount="-Rp 50.500" isPositive={false} status="Berhasil" />
-        </div>
-        <div className="transaction-item">
-          <TransactionItem icon={AddCardIcon} iconBg="bg-primary-container/10" title="Top Up via BCA" subtitle="Virtual Account • Kemarin" amount="+Rp 500.000" isPositive={true} status="Berhasil" />
-        </div>
-        <div className="transaction-item">
-          <TransactionItem icon={ShoppingCartIcon} iconBg="bg-secondary-container" title="Indomaret Belanja Harian" subtitle="Merchant Payment • Kemarin" amount="-Rp 125.000" isPositive={false} status="Berhasil" />
-        </div>
+        {loading ? (
+          <div className="text-center py-8 opacity-70">
+            <p className="font-bold text-secondary">Memuat riwayat...</p>
+          </div>
+        ) : transactions.length === 0 ? (
+          <div className="text-center py-8 opacity-70">
+            <p className="font-bold text-secondary">(BELUM ADA RIWAYAT TRANSAKSI)</p>
+          </div>
+        ) : (
+          transactions.slice(0, 5).map((tx, idx) => {
+            const isPositive = tx.type === 'TOP_UP';
+            const icon = isPositive ? AddCardIcon : ShoppingCartIcon;
+            const iconBg = isPositive ? 'bg-primary-container/10' : 'bg-secondary-container';
+            const title = tx.type === 'TOP_UP' ? 'Top Up Saldo' : tx.merchantName || 'Pembayaran';
+            const prefix = isPositive ? '+' : '-';
+            
+            // Format date nicely
+            const dateObj = new Date(tx.createdAt);
+            const dateStr = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            
+            return (
+              <div key={tx.transactionId || idx} className="transaction-item">
+                <TransactionItem 
+                  icon={icon} 
+                  iconBg={iconBg} 
+                  title={title} 
+                  subtitle={`${tx.type} • ${dateStr}`} 
+                  amount={`${prefix}Rp ${formatRp(tx.amount)}`} 
+                  isPositive={isPositive} 
+                  status={tx.status} 
+                />
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );
 };
 
-const MonthlySpending = () => (
-  <div className="bg-surface rounded-3xl p-6 premium-shadow">
-    <h4 className="font-headline-sm text-headline-sm mb-4">Pengeluaran Bulan Ini</h4>
-    <div className="flex items-end gap-2 mb-2">
-      <span className="text-3xl font-black">Rp 2.450.000</span>
-      <span className="text-error text-xs font-bold mb-1 flex items-center">
-        <img src={ArrowUpwardIcon} alt="naik" className="w-3.5 h-3.5" /> 12%
-      </span>
-    </div>
-    <div className="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
-      <div className="bg-primary h-full w-[65%]"></div>
-    </div>
-    <p className="text-[10px] text-secondary mt-2">65% dari budget bulanan kamu terpakai.</p>
-  </div>
-);
+const MonthlySpending = () => {
+  const [spending, setSpending] = useState(0);
+  const budget = 5000000; // Asumsi budget bulanan 5 juta
+  
+  useEffect(() => {
+    getTransactionHistory().then(data => {
+      const currentMonth = new Date().getMonth();
+      const currentYear = new Date().getFullYear();
+      
+      const totalSpent = data
+        .filter(tx => tx.type !== 'TOP_UP') // semua yang bukan topup dianggap pengeluaran
+        .filter(tx => {
+          const txDate = new Date(tx.createdAt);
+          return txDate.getMonth() === currentMonth && txDate.getFullYear() === currentYear;
+        })
+        .reduce((sum, tx) => sum + tx.amount, 0);
+        
+      setSpending(totalSpent);
+    }).catch(console.error);
+  }, []);
 
-const IWalletDashboard = () => (
+  const formatRp = (num) => new Intl.NumberFormat('id-ID').format(num);
+  const percentage = Math.min(Math.round((spending / budget) * 100), 100);
+
+  return (
+    <div className="bg-surface rounded-3xl p-6 premium-shadow">
+      <h4 className="font-headline-sm text-headline-sm mb-4">Pengeluaran Bulan Ini</h4>
+      <div className="flex items-end gap-2 mb-2">
+        <span className="text-3xl font-black">Rp {formatRp(spending)}</span>
+      </div>
+      <div className="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden mt-4">
+        <div className="bg-primary h-full transition-all duration-1000 ease-out" style={{ width: `${percentage}%` }}></div>
+      </div>
+      <p className="text-[10px] text-secondary mt-2">{percentage}% dari budget bulanan (Rp 5.000.000) kamu terpakai.</p>
+    </div>
+  );
+};
+
+const IWalletDashboard = () => {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const firstName = user.fullName ? user.fullName.split(' ')[0] : "Budi";
+
+  return (
   <div className="p-4 sm:p-6 md:p-8 flex flex-col gap-6 max-w-7xl mx-auto w-full">
     <section className="mb-2">
-      <h2 className="font-display-lg text-display-lg">Halo, Budi</h2>
+      <h2 className="font-display-lg text-display-lg">Halo, {firstName}</h2>
       <p className="font-body-md text-body-md text-secondary">Selamat datang kembali! Mari kelola keuanganmu hari ini.</p>
     </section>
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -237,7 +319,8 @@ const IWalletDashboard = () => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 const IWallet = () => {
   const navigate = useNavigate();

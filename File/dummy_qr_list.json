@@ -1,0 +1,42 @@
+[
+  {
+    "description": "Dummy QR 1 - Kedai Kopi (Sesuai contoh awal)",
+    "qrContent": {
+      "merchantId": "M-123456",
+      "merchantName": "Kedai Kopi Digital",
+      "amount": 50000
+    }
+  },
+  {
+    "description": "Dummy QR 2 - Supermarket (Tagihan Besar)",
+    "qrContent": {
+      "merchantId": "M-998877",
+      "merchantName": "Supermarket Makmur Jaya",
+      "amount": 450500
+    }
+  },
+  {
+    "description": "Dummy QR 3 - Bioskop (Pemesanan Tiket)",
+    "qrContent": {
+      "merchantId": "M-334455",
+      "merchantName": "Cinema 21 Plus",
+      "amount": 75000
+    }
+  },
+  {
+    "description": "Dummy QR 4 - Toko Buku",
+    "qrContent": {
+      "merchantId": "M-112233",
+      "merchantName": "Toko Buku Pintar",
+      "amount": 125000
+    }
+  },
+  {
+    "description": "Dummy QR 5 - QR Error / Format Salah (Untuk testing exception)",
+    "qrContent": {
+      "tokoId": "M-000000",
+      "namaToko": "Toko Tidak Valid",
+      "harga": "Gratis"
+    }
+  }
+]

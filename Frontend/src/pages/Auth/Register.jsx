@@ -132,8 +132,8 @@ export default function Register() {
         </div>
 
         {/* Footer */}
-        <div className="relative z-10 flex items-center gap-3 text-white/60 text-[12px] leading-[16px]">
-          <span>© 2024 IWallet Inc. All rights reserved.</span>
+        <div className="mt-8 text-center text-xs font-bold text-secondary opacity-60 flex justify-center gap-4">
+          <span>© 2026 IWallet Inc. All rights reserved.</span>
         </div>
       </section>
 
