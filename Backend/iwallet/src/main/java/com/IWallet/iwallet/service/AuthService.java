@@ -67,13 +67,44 @@ public class AuthService {
             return new LoginResponseDTO(token, mapToDTO(user));
         }
 
-    public void deleteUser(String publicId) {
-            User user = userRepository.findByPublicId(publicId)
-                .orElseThrow(() -> new RuntimeException("User tidak ditemukan!"));
-
-            user.setStatus("INACTIVE");
-            userRepository.save(user); //soft delete
+    @Transactional
+    public void deleteUser(String publicId, String password) {
+        User user = userRepository.findByPublicId(publicId)
+            .orElseThrow(() -> new RuntimeException("User tidak ditemukan!"));
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("Password salah!");
         }
+        user.setStatus("INACTIVE");
+        userRepository.save(user); //soft delete
+    }
+
+    @Transactional
+    public void changePin(String publicId, String oldPin, String newPin) {
+        User user = userRepository.findByPublicId(publicId)
+            .orElseThrow(() -> new RuntimeException("User tidak ditemukan!"));
+        if (!passwordEncoder.matches(oldPin, user.getPin())) {
+            throw new RuntimeException("PIN lama salah!");
+        }
+        if (newPin.length() != 6) {
+            throw new RuntimeException("PIN baru harus 6 digit!");
+        }
+        user.setPin(passwordEncoder.encode(newPin));
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void changePassword(String publicId, String oldPassword, String newPassword) {
+        User user = userRepository.findByPublicId(publicId)
+            .orElseThrow(() -> new RuntimeException("User tidak ditemukan!"));
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new RuntimeException("Password lama salah!");
+        }
+        if (newPassword.length() < 6) {
+            throw new RuntimeException("Password baru minimal 6 karakter!");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
 
     private UserResponseDTO mapToDTO(User user) {
         UserResponseDTO dto = new UserResponseDTO();

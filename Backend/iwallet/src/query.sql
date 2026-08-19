@@ -1,5 +1,5 @@
 -- Active: 1782337206480@@localhost@3306@db_iwallet
-    select * from users;
+select * from users;
 select * from merchants;
 show tables;
 
@@ -9,3 +9,4 @@ SELECT public_id FROM merchants LIMIT 1;
 select * from transactions;
 select * from wallets;
 select * from merchants;
+

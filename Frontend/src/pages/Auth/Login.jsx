@@ -10,7 +10,6 @@ import MailIcon from "../../assets/icons/login/mail.svg";
 export default function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -161,9 +160,7 @@ export default function Login() {
                   <label className="text-[12px] leading-[16px] tracking-[0.01em] font-medium text-on-surface-variant" htmlFor="password">
                     Kata Sandi
                   </label>
-                  <a className="ml-auto text-[12px] leading-[16px] font-medium text-primary tracking-[0.12px] hover:underline decoration-primary/30 underline-offset-4 cursor-pointer">
-                    Lupa Kata Sandi?
-                  </a>
+                  
                 </div>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-4 flex items-center text-outline group-focus-within:text-primary transition-colors">
@@ -181,20 +178,6 @@ export default function Login() {
                     onChange={handleChange}
                   />
                 </div>
-              </div>
-
-              {/* Remember Me */}
-              <div className="flex items-center gap-2 px-1">
-                <input
-                  className="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/20 bg-surface"
-                  id="remember"
-                  type="checkbox"
-                  checked={remember}
-                  onChange={(e) => setRemember(e.target.checked)}
-                />
-                <label className="text-[12px] leading-[16px] font-medium text-on-surface-variant cursor-pointer" htmlFor="remember">
-                  Tetap masuk di perangkat ini
-                </label>
               </div>
 
               {/* Submit Button */}

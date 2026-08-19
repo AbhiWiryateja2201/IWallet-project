@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:8080/api/wallet';
+import { API_BASE_URL } from '../config/api';
+const API_URL = `${API_BASE_URL}/api/wallet`;
 
 export const getBalance = async () => {
   const token = localStorage.getItem('token');

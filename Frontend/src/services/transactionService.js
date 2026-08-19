@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:8080/api/transactions';
+import { API_BASE_URL } from '../config/api';
+const API_URL = `${API_BASE_URL}/api/transactions`;
 
 export const getTransactionHistory = async () => {
   const token = localStorage.getItem('token');

@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:8080/api/topup';
+import { API_BASE_URL } from '../config/api';
+const API_URL = `${API_BASE_URL}/api/topup`;
 
 export const topUpBalance = async (amount) => {
   const token = localStorage.getItem('token');
